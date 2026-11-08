@@ -1,0 +1,2175 @@
+<div
+  class="min-h-screen bg-[#130E17] text-[#F8FAFC] transition-all duration-200"
+  [class.text-lg]="projectorMode()"
+>
+  <!-- Top Bar Contract: Strictly 3 zones separated by gap-8 -->
+  <header
+    class="sticky top-0 z-40 flex items-center justify-between gap-8 border-b border-[#32263D] bg-[#130E17]/95 px-6 py-4 backdrop-blur-md no-print"
+  >
+    <a
+      href="#top"
+      class="text-lg font-extrabold tracking-tight text-[#F8FAFC] whitespace-nowrap shrink-0"
+    >
+      Anti Gravity Studio
+    </a>
+
+    <nav
+      aria-label="Główna nawigacja"
+      class="hidden lg:flex items-center gap-6 text-sm font-medium text-[#CBD5E1]"
+    >
+      <a
+        href="#smart-grid"
+        class="hover:text-[#D8ED00] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+      >
+        Smart Grid &amp; dCi
+      </a>
+      <a
+        href="#konsola-ai"
+        class="hover:text-[#D8ED00] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+      >
+        Agent AI &amp; Audiokiosk
+      </a>
+      <a
+        href="#biurko-energia"
+        class="hover:text-[#D8ED00] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+      >
+        Biurko 180° &amp; Energia
+      </a>
+      <a
+        href="#finanse-dotacje"
+        class="hover:text-[#D8ED00] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+      >
+        Finanse &amp; PFRON
+      </a>
+      <a
+        href="#eksport-master"
+        class="hover:text-[#D8ED00] hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
+      >
+        Eksport PDF / MD / PY
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-3 shrink-0">
+      @if (currentUser(); as user) {
+        <button
+          type="button"
+          (click)="signOutUser()"
+          class="inline-flex items-center gap-1.5 rounded-xl border border-[#32263D] bg-[#241B2C] px-3.5 py-2 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+        >
+          <mat-icon class="!text-base !w-4 !h-4 leading-none text-[#D8ED00]">verified_user</mat-icon>
+          <span>{{ user.email || 'Zalogowany' }} (Wyloguj)</span>
+        </button>
+      } @else {
+        <button
+          type="button"
+          (click)="signInWithGoogle()"
+          class="inline-flex items-center gap-1.5 rounded-xl border border-[#32263D] bg-[#241B2C] px-3.5 py-2 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+        >
+          <mat-icon class="!text-base !w-4 !h-4 leading-none text-[#D8ED00]">login</mat-icon>
+          <span>Zaloguj Google</span>
+        </button>
+      }
+
+      <button
+        type="button"
+        (click)="downloadDocument('pdf')"
+        class="inline-flex items-center gap-2 rounded-xl bg-[#D8ED00] px-4 py-2 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+      >
+        <mat-icon class="!text-base !w-4 !h-4 leading-none">picture_as_pdf</mat-icon>
+        <span>Pobierz Natywny .PDF</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <!-- Hero & Academic / Executive Context -->
+    <section
+      aria-labelledby="hero-heading"
+      class="rounded-2xl border border-[#32263D] bg-[#1B1421] p-6 sm:p-8"
+    >
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <div class="lg:col-span-8 flex flex-col justify-between space-y-6">
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-[#CBD5E1]">
+              <span>Inż. Oprogramowania (11. semestr mgr, obrona: Marzec 2027)</span>
+              <span aria-hidden="true">·</span>
+              <span>Promotor: Prof. dr hab. inż. Cezary Orłowski</span>
+              <span aria-hidden="true">·</span>
+              <span>Ustka – Słupsk – Trójmiasto</span>
+            </div>
+
+            <h1
+              id="hero-heading"
+              class="text-2xl sm:text-4xl font-extrabold tracking-tight text-[#F8FAFC] leading-tight"
+              style="text-wrap: balance"
+            >
+              Mobilne Laboratorium AI, Smart Grid Baltica WindShare &amp; Pakiet Dokumentacji Master
+            </h1>
+
+            <p class="text-sm sm:text-base text-[#CBD5E1] max-w-3xl leading-relaxed">
+              Zintegrowane środowisko łączące dwie prace dyplomowe: agenta konwersacyjnego RAG dla
+              <strong class="text-[#F8FAFC]">Hotelu w Gdańsku Śródmieściu</strong> (praca inż.) oraz
+              międzysektorowy model dojrzałości <strong class="text-[#F8FAFC]">Smart Grid Ustka – Słupsk – Trójmiasto</strong>
+              z walidacją jakości powietrza <strong class="text-[#D8ED00]">dCi / AQI</strong> pod kierunkiem
+              Prof. Cezarego Orłowskiego, pilotażem 3 audiokiosków <strong class="text-[#F8FAFC]">„Dostępna Gmina” (11 000 PLN)</strong>
+              oraz generatorem natywnych plików <span class="font-mono">.PDF (PDF-1.4), .MD, .TXT i .PY</span>.
+            </p>
+          </div>
+
+          <!-- Workspace Mode & Quick Export Toolbar -->
+          <div class="pt-4 border-t border-[#32263D] flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              (click)="downloadDocument('md')"
+              class="inline-flex items-center gap-2 rounded-xl bg-[#D8ED00] px-4 py-2.5 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <mat-icon class="!text-base !w-4 !h-4 leading-none">download</mat-icon>
+              <span>⬇ Pobierz .MD</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="downloadDocument('txt')"
+              class="inline-flex items-center gap-2 rounded-xl bg-[#241B2C] border border-[#32263D] px-4 py-2.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <mat-icon class="!text-base !w-4 !h-4 leading-none">description</mat-icon>
+              <span>⬇ Pobierz .TXT</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="downloadDocument('pdf')"
+              class="inline-flex items-center gap-2 rounded-xl bg-[#241B2C] border border-[#32263D] px-4 py-2.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <mat-icon class="!text-base !w-4 !h-4 leading-none">picture_as_pdf</mat-icon>
+              <span>⬇ Zapisz .PDF (PDF-1.4)</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="downloadDocument('html')"
+              class="inline-flex items-center gap-2 rounded-xl bg-[#241B2C] border border-[#32263D] px-4 py-2.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <mat-icon class="!text-base !w-4 !h-4 leading-none">html</mat-icon>
+              <span>⬇ Prezentacja_Multimedialna_Master.html</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="downloadDocument('py')"
+              class="inline-flex items-center gap-2 rounded-xl bg-[#241B2C] border border-[#32263D] px-4 py-2.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            >
+              <mat-icon class="!text-base !w-4 !h-4 leading-none">terminal</mat-icon>
+              <span>⬇ generator_pdf_md_txt.py</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="projectorMode.set(!projectorMode())"
+              [attr.aria-pressed]="projectorMode()"
+              class="inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              [class.bg-[#EF303F]]="projectorMode()"
+              [class.border-[#EF303F]]="projectorMode()"
+              [class.text-white]="projectorMode()"
+              [class.bg-[#130E17]]="!projectorMode()"
+              [class.border-[#32263D]]="!projectorMode()"
+              [class.text-[#CBD5E1]]="!projectorMode()"
+            >
+              <mat-icon class="!text-base !w-4 !h-4 leading-none">videocam</mat-icon>
+              <span>{{ projectorMode() ? 'Projektor 120" Ustka: AKTYWNY' : 'Tryb Projektora 120" (4K)' }}</span>
+            </button>
+          </div>
+
+          @if (exportFeedback()) {
+            <div
+              role="status"
+              aria-live="polite"
+              class="rounded-xl border border-[#D8ED00]/50 bg-[#241B2C] px-4 py-2.5 text-xs font-mono text-[#D8ED00] flex items-center justify-between"
+            >
+              <span>{{ exportFeedback() }}</span>
+              <button
+                type="button"
+                (click)="exportFeedback.set(null)"
+                aria-label="Zamknij powiadomienie eksportu"
+                class="text-[#CBD5E1] hover:text-white inline-flex items-center gap-1 cursor-pointer"
+              >
+                <mat-icon class="!text-sm !w-4 !h-4">close</mat-icon>
+                <span>Zamknij</span>
+              </button>
+            </div>
+          }
+        </div>
+
+        <!-- Right column: Verified Scientific KPIs & Grant Readiness -->
+        <div
+          class="lg:col-span-4 rounded-xl border border-[#32263D] bg-[#241B2C] p-5 flex flex-col justify-between space-y-5"
+        >
+          <div>
+            <div class="text-xs font-mono text-[#CBD5E1] mb-1">
+              Walidacja Naukowa &amp; Quality Gates (Przetargi Offshore)
+            </div>
+            <h2 class="text-base font-bold text-[#F8FAFC]">
+              Macierz Ewaluacji AI &amp; Telemetrii Światłowodowej
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 font-mono tabular-nums">
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-xs text-[#CBD5E1]">BERTScore F1</div>
+              <div class="text-xl font-bold text-[#D8ED00]">0.87</div>
+              <div class="text-[11px] text-[#94A3B8]">Próg &gt; 0.85</div>
+            </div>
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-xs text-[#CBD5E1]">CodeBLEU</div>
+              <div class="text-xl font-bold text-[#D8ED00]">0.74</div>
+              <div class="text-[11px] text-[#94A3B8]">Syntaktyka + AST</div>
+            </div>
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-xs text-[#CBD5E1]">ROUGE-L / BLEU-4</div>
+              <div class="text-xl font-bold text-[#F8FAFC]">0.68 / 0.42</div>
+              <div class="text-[11px] text-[#94A3B8]">Pass@5: 0.82</div>
+            </div>
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-xs text-[#CBD5E1]">Światłowód DWDM</div>
+              <div class="text-xl font-bold text-[#D8ED00]">3.84 ms</div>
+              <div class="text-[11px] text-[#94A3B8]">SLA &lt; 5.00 ms</div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-[#32263D] text-xs text-[#CBD5E1] space-y-1 font-mono tabular-nums">
+            <div class="flex justify-between">
+              <span>Limit PFRON (PUP Słupsk):</span>
+              <span class="text-[#F8FAFC] font-semibold">143 400 PLN (PoC: 16 850 PLN)</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Grant B+R FE Pomorza 1.1:</span>
+              <span class="text-[#D8ED00] font-semibold">600 000 – 2 000 000 PLN</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Pilotaż GovTech 3x Audiokiosk:</span>
+              <span class="text-[#F8FAFC] font-semibold">11 000 PLN brutto (poniżej PZP)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: SMART GRID & dCi AIR QUALITY TELEMETRY (USTKA – SŁUPSK – TRÓJMIASTO) -->
+    <section
+      id="smart-grid"
+      aria-labelledby="smart-grid-heading"
+      class="rounded-2xl border border-[#32263D] bg-[#1B1421] p-6 sm:p-8 space-y-6"
+    >
+      <div class="flex flex-col xl:flex-row xl:items-end justify-between gap-4 border-b border-[#32263D] pb-5">
+        <div class="space-y-1">
+          <div class="text-xs font-mono text-[#CBD5E1]">
+            01. Korytarz Energetyczno-Światłowodowy Pomorza · Nadzór: Prof. dr hab. inż. Cezary Orłowski
+          </div>
+          <h2 id="smart-grid-heading" class="text-xl sm:text-2xl font-bold text-[#F8FAFC]">
+            Interaktywna Mapa Smart Grid, Baltica WindShare (2.5 GW) &amp; Walidacja dCi / AQI
+          </h2>
+        </div>
+
+        <!-- Zone Segmented Control -->
+        <div
+          role="group"
+          aria-label="Wybór strefy pomiarowej Pomorza"
+          class="flex items-center gap-1.5 rounded-xl bg-[#130E17] p-1.5 border border-[#32263D] overflow-x-auto shrink-0"
+        >
+          <button
+            type="button"
+            (click)="selectZone('ustka')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="selectedZoneId() === 'ustka'"
+            [class.text-[#130E17]]="selectedZoneId() === 'ustka'"
+            [class.text-[#CBD5E1]]="selectedZoneId() !== 'ustka'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">anchor</mat-icon>
+            <span>Ustka Port (Offshore O&amp;M)</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="selectZone('slupsk')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="selectedZoneId() === 'slupsk'"
+            [class.text-[#130E17]]="selectedZoneId() === 'slupsk'"
+            [class.text-[#CBD5E1]]="selectedZoneId() !== 'slupsk'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">bolt</mat-icon>
+            <span>Słupsk (GPZ Wierzbięcino 400 kV)</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="selectZone('trojmiasto')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="selectedZoneId() === 'trojmiasto'"
+            [class.text-[#130E17]]="selectedZoneId() === 'trojmiasto'"
+            [class.text-[#CBD5E1]]="selectedZoneId() !== 'trojmiasto'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">apartment</mat-icon>
+            <span>Trójmiasto (Hotel Gdańsk)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Interactive 3D Three.js Scene + 2D Corridor Schematic SVG & Zone Table -->
+        <div class="lg:col-span-7 space-y-5">
+          <!-- Three.js 3D WebGL Scene Container with Collapsible Bottom Dock -->
+          <div class="relative rounded-xl border border-[#32263D] bg-[#130E17] overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-b border-[#32263D] bg-[#18111E] text-xs font-mono text-[#CBD5E1]">
+              <span class="text-[#D8ED00] font-bold">
+                Wizualizacja 3D Three.js (ACESFilmic PBR · PGE Baltica 2.5 GW + Korytarz DWDM)
+              </span>
+              <span>Moc morska: {{ activeZoneInput().windShareMw }} MW · dCi {{ activeZoneEval().dCiScore }}/100</span>
+            </div>
+
+            <div class="relative w-full h-[300px] bg-[#130E17]">
+              <canvas
+                #smartGridCanvas
+                class="w-full h-full block cursor-grab active:cursor-grabbing"
+                aria-label="Interaktywna scena 3D Three.js przedstawiająca morską turbinę wiatrową PGE Baltica, Port Ustka, stację GPZ Słupsk 400 kV oraz Hotel Gdańsk"
+              ></canvas>
+
+              <!-- Collapsible Bottom Control Dock (<= 44px height) -->
+              <div
+                class="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 rounded-xl border border-[#32263D] bg-[#130E17]/90 px-3 py-1.5 backdrop-blur-md max-h-[44px]"
+              >
+                @if (!threeDockCollapsed()) {
+                  <div class="flex items-center gap-1.5 overflow-x-auto">
+                    <button
+                      type="button"
+                      (click)="setThreePreset('overview')"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-mono font-semibold whitespace-nowrap cursor-pointer"
+                      [class.bg-[#D8ED00]]="threeCameraPreset() === 'overview'"
+                      [class.text-[#130E17]]="threeCameraPreset() === 'overview'"
+                      [class.text-[#CBD5E1]]="threeCameraPreset() !== 'overview'"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">3d_rotation</mat-icon>
+                      <span>Panorama 3D</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="setThreePreset('turbine')"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-mono font-semibold whitespace-nowrap cursor-pointer"
+                      [class.bg-[#D8ED00]]="threeCameraPreset() === 'turbine'"
+                      [class.text-[#130E17]]="threeCameraPreset() === 'turbine'"
+                      [class.text-[#CBD5E1]]="threeCameraPreset() !== 'turbine'"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">wind_power</mat-icon>
+                      <span>Turbina Baltica</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="setThreePreset('substation')"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-mono font-semibold whitespace-nowrap cursor-pointer"
+                      [class.bg-[#D8ED00]]="threeCameraPreset() === 'substation'"
+                      [class.text-[#130E17]]="threeCameraPreset() === 'substation'"
+                      [class.text-[#CBD5E1]]="threeCameraPreset() !== 'substation'"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">bolt</mat-icon>
+                      <span>GPZ 400 kV</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="toggleThreeWireframe()"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-mono font-semibold whitespace-nowrap cursor-pointer"
+                      [class.bg-[#D8ED00]]="threeWireframe()"
+                      [class.text-[#130E17]]="threeWireframe()"
+                      [class.text-[#CBD5E1]]="!threeWireframe()"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">grid_on</mat-icon>
+                      <span>Siatka CAD</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      (click)="toggleThreeAutoRotate()"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-[11px] font-mono font-semibold whitespace-nowrap cursor-pointer"
+                      [class.bg-[#D8ED00]]="threeAutoRotate()"
+                      [class.text-[#130E17]]="threeAutoRotate()"
+                      [class.text-[#CBD5E1]]="!threeAutoRotate()"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">autorenew</mat-icon>
+                      <span>Orbita</span>
+                    </button>
+                  </div>
+                } @else {
+                  <span class="text-[11px] font-mono text-[#CBD5E1]">Dok kamery 3D zwinięty</span>
+                }
+
+                <button
+                  type="button"
+                  (click)="threeDockCollapsed.set(!threeDockCollapsed())"
+                  class="inline-flex items-center gap-1 rounded-lg border border-[#32263D] bg-[#241B2C] px-2 py-1 text-[11px] font-mono text-[#F8FAFC] hover:border-[#D8ED00] shrink-0 cursor-pointer"
+                >
+                  <mat-icon class="!text-xs !w-3.5 !h-3.5">
+                    {{ threeDockCollapsed() ? 'unfold_more' : 'unfold_less' }}
+                  </mat-icon>
+                  <span>{{ threeDockCollapsed() ? 'Rozwiń' : 'Zwiń' }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-[#32263D] bg-[#130E17] p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#CBD5E1] mb-3">
+              <span>Topologia 2D DWDM 400G + HVDC Offshore</span>
+              <span>Latencja pętli: {{ activeZoneEval().fiberLatencyMs }} ms (SLA &lt; 5.0 ms)</span>
+            </div>
+
+            <svg
+              viewBox="0 0 760 280"
+              class="w-full h-auto rounded-lg bg-[#18111E] border border-[#32263D]"
+              role="img"
+              aria-label="Schemat połączeń Smart Grid: PGE Baltica 2 i 3, Ustka Port, Słupsk GPZ Wierzbięcino 400 kV oraz Trójmiasto Hotel Gdańsk"
+            >
+              <!-- Baltic Sea Background Band -->
+              <rect x="0" y="0" width="760" height="95" fill="#130E17" />
+              <text x="20" y="26" fill="#94A3B8" font-family="JetBrains Mono, monospace" font-size="11">
+                MORZE BAŁTYCKIE — Ławica Słupska (PGE Baltica 2 &amp; 3 · 2.5 GW WindShare)
+              </text>
+
+              <!-- Power & Fiber Lines -->
+              <line x1="170" y1="62" x2="170" y2="165" stroke="#EF303F" stroke-width="3" stroke-dasharray="6 4" />
+              <line x1="170" y1="165" x2="380" y2="210" stroke="#D8ED00" stroke-width="3" />
+              <line x1="380" y1="210" x2="610" y2="165" stroke="#D8ED00" stroke-width="3" />
+              <line x1="170" y1="165" x2="610" y2="165" stroke="#32263D" stroke-width="2" stroke-dasharray="4 4" />
+
+              <!-- Node 0: Offshore Wind Farm -->
+              <g transform="translate(85, 36)">
+                <rect x="0" y="0" width="180" height="44" rx="8" fill="#241B2C" stroke="#EF303F" stroke-width="2" />
+                <text x="12" y="19" fill="#F8FAFC" font-family="Plus Jakarta Sans, sans-serif" font-size="12" font-weight="700">
+                  PGE Baltica 2 &amp; 3 (2.5 GW)
+                </text>
+                <text x="12" y="35" fill="#D8ED00" font-family="JetBrains Mono, monospace" font-size="11">
+                  Generacja: {{ activeZoneInput().windShareMw }} MW · HVDC
+                </text>
+              </g>
+
+              <!-- Node 1: Ustka Port -->
+              <g
+                transform="translate(75, 140)"
+                (click)="selectZone('ustka')"
+                class="cursor-pointer"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="195"
+                  height="64"
+                  rx="10"
+                  [attr.fill]="selectedZoneId() === 'ustka' ? '#241B2C' : '#1B1421'"
+                  [attr.stroke]="selectedZoneId() === 'ustka' ? '#D8ED00' : '#32263D'"
+                  stroke-width="2.5"
+                />
+                <text x="14" y="22" fill="#F8FAFC" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700">
+                  1. USTKA PORT (O&amp;M)
+                </text>
+                <text x="14" y="40" fill="#CBD5E1" font-family="JetBrains Mono, monospace" font-size="11">
+                  dCi: {{ allZonesEvals()[0].dCiScore }}/100 · PM2.5: {{ allZonesEvals()[0].correctedPm25 }}
+                </text>
+                <text x="14" y="55" fill="#D8ED00" font-family="JetBrains Mono, monospace" font-size="10">
+                  Jod: 9.2 µg/m³ · DWDM 3.84 ms
+                </text>
+              </g>
+
+              <!-- Node 2: Słupsk GPZ Wierzbięcino -->
+              <g
+                transform="translate(285, 190)"
+                (click)="selectZone('slupsk')"
+                class="cursor-pointer"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="205"
+                  height="64"
+                  rx="10"
+                  [attr.fill]="selectedZoneId() === 'slupsk' ? '#241B2C' : '#1B1421'"
+                  [attr.stroke]="selectedZoneId() === 'slupsk' ? '#D8ED00' : '#32263D'"
+                  stroke-width="2.5"
+                />
+                <text x="14" y="22" fill="#F8FAFC" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700">
+                  2. SŁUPSK (GPZ 400 kV)
+                </text>
+                <text x="14" y="40" fill="#CBD5E1" font-family="JetBrains Mono, monospace" font-size="11">
+                  dCi: {{ allZonesEvals()[1].dCiScore }}/100 · PM2.5: {{ allZonesEvals()[1].correctedPm25 }}
+                </text>
+                <text x="14" y="55" fill="#D8ED00" font-family="JetBrains Mono, monospace" font-size="10">
+                  Wierzbięcino · DWDM 2.15 ms
+                </text>
+              </g>
+
+              <!-- Node 3: Trójmiasto Hotel Gdańsk -->
+              <g
+                transform="translate(515, 140)"
+                (click)="selectZone('trojmiasto')"
+                class="cursor-pointer"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="215"
+                  height="64"
+                  rx="10"
+                  [attr.fill]="selectedZoneId() === 'trojmiasto' ? '#241B2C' : '#1B1421'"
+                  [attr.stroke]="selectedZoneId() === 'trojmiasto' ? '#D8ED00' : '#32263D'"
+                  stroke-width="2.5"
+                />
+                <text x="14" y="22" fill="#F8FAFC" font-family="Plus Jakarta Sans, sans-serif" font-size="13" font-weight="700">
+                  3. TRÓJMIASTO (GDAŃSK)
+                </text>
+                <text x="14" y="40" fill="#CBD5E1" font-family="JetBrains Mono, monospace" font-size="11">
+                  dCi: {{ allZonesEvals()[2].dCiScore }}/100 · PM2.5: {{ allZonesEvals()[2].correctedPm25 }}
+                </text>
+                <text x="14" y="55" fill="#D8ED00" font-family="JetBrains Mono, monospace" font-size="10">
+                  Hotel Gdańsk RAG · 4.12 ms
+                </text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Comparison Table of All 3 Pomeranian Zones -->
+          <div class="overflow-x-auto rounded-xl border border-[#32263D] bg-[#130E17]">
+            <table class="w-full text-left border-collapse text-xs font-mono tabular-nums">
+              <thead>
+                <tr class="border-b border-[#32263D] text-[#CBD5E1] bg-[#241B2C]">
+                  <th class="py-3 px-4">Węzeł Pomorski</th>
+                  <th class="py-3 px-3 text-right">Indeks dCi</th>
+                  <th class="py-3 px-3 text-right">PM2.5 (skoryg.)</th>
+                  <th class="py-3 px-3 text-right">Wilgotność RH</th>
+                  <th class="py-3 px-3 text-right">Światłowód</th>
+                  <th class="py-3 px-4">Status Czujnika / Taryfy</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#32263D]">
+                @for (z of allZonesEvals(); track z.zoneId) {
+                  <tr
+                    (click)="selectZone(z.zoneId)"
+                    class="hover:bg-[#241B2C]/60 transition-colors cursor-pointer"
+                    [class.bg-[#241B2C]]="selectedZoneId() === z.zoneId"
+                  >
+                    <td class="py-3 px-4 font-sans font-semibold text-[#F8FAFC]">
+                      {{ z.zoneId === 'ustka' ? 'Ustka Port (Offshore)' : z.zoneId === 'slupsk' ? 'Słupsk (GPZ 400 kV)' : 'Trójmiasto (Hotel Gdańsk)' }}
+                    </td>
+                    <td class="py-3 px-3 text-right font-bold text-[#D8ED00]">
+                      {{ z.dCiScore }}/100
+                    </td>
+                    <td class="py-3 px-3 text-right">
+                      {{ z.correctedPm25 }} µg/m³
+                    </td>
+                    <td class="py-3 px-3 text-right">
+                      {{ z.humidityRh }}% {{ z.humidityCorrectionApplied ? '(Korekta RH>85%)' : '' }}
+                    </td>
+                    <td class="py-3 px-3 text-right text-[#D8ED00]">
+                      {{ z.fiberLatencyMs }} ms
+                    </td>
+                    <td class="py-3 px-4 font-sans text-[#CBD5E1]">
+                      {{ z.statusLabel }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right Column: Live dCi & Anomaly Simulator for Selected Zone -->
+        <div class="lg:col-span-5 rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-5">
+          <div class="border-b border-[#32263D] pb-3">
+            <div class="text-xs font-mono text-[#D8ED00]">
+              Kalibracja Telemetrii GIOŚ / LoRaWAN · Aktywny Węzeł
+            </div>
+            <h3 class="text-base font-bold text-[#F8FAFC] mt-0.5">
+              {{ activeZoneEval().zoneName }}
+            </h3>
+          </div>
+
+          <!-- Key Evaluated Metrics Strip -->
+          <div class="grid grid-cols-3 gap-3 font-mono tabular-nums">
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-[11px] text-[#CBD5E1]">Indeks dCi</div>
+              <div
+                class="text-2xl font-extrabold"
+                [class.text-[#D8ED00]]="!activeZoneEval().isFlatline"
+                [class.text-[#EF303F]]="activeZoneEval().isFlatline"
+              >
+                {{ activeZoneEval().dCiScore }}/100
+              </div>
+              <div class="text-[11px] text-[#94A3B8]">Norma &gt; 75</div>
+            </div>
+
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-[11px] text-[#CBD5E1]">PM2.5 Po Korekcie</div>
+              <div class="text-2xl font-extrabold text-[#F8FAFC]">
+                {{ activeZoneEval().correctedPm25 }}
+              </div>
+              <div class="text-[11px] text-[#94A3B8]">
+                Surowy: {{ activeZoneEval().rawPm25 }} µg/m³
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-[11px] text-[#CBD5E1]">Flatline Fault</div>
+              <div
+                class="text-lg font-extrabold"
+                [class.text-[#D8ED00]]="!activeZoneEval().isFlatline"
+                [class.text-[#EF303F]]="activeZoneEval().isFlatline"
+              >
+                {{ activeZoneEval().isFlatline ? 'WYKRYTO BŁĄD' : 'BRAK (OK)' }}
+              </div>
+              <div class="text-[11px] text-[#94A3B8]">
+                {{ activeZoneEval().humidityCorrectionApplied ? 'Korekta RH>85%' : 'Wilgotność w normie' }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Sliders for testing PM2.5, Humidity RH%, Iodine, and Fiber Latency -->
+          <div class="space-y-4 text-xs">
+            <div>
+              <div class="flex justify-between font-mono mb-1">
+                <label for="slider-pm25" class="text-[#CBD5E1]">Stężenie PM2.5 (µg/m³ — norma &lt; 15):</label>
+                <span class="text-[#D8ED00] font-bold">{{ activeZoneInput().pm25 }} µg/m³</span>
+              </div>
+              <input
+                id="slider-pm25"
+                type="range"
+                min="2"
+                max="65"
+                step="0.5"
+                [value]="activeZoneInput().pm25"
+                (input)="updateZoneParam('pm25', $any($event.target).value)"
+                class="w-full accent-[#D8ED00] cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div class="flex justify-between font-mono mb-1">
+                <label for="slider-rh" class="text-[#CBD5E1]">Wilgotność względna RH% (próg korekty mgły &gt; 85%):</label>
+                <span class="text-[#D8ED00] font-bold">{{ activeZoneInput().humidityRh }}%</span>
+              </div>
+              <input
+                id="slider-rh"
+                type="range"
+                min="45"
+                max="98"
+                step="1"
+                [value]="activeZoneInput().humidityRh"
+                (input)="updateZoneParam('humidityRh', $any($event.target).value)"
+                class="w-full accent-[#D8ED00] cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div class="flex justify-between font-mono mb-1">
+                <label for="slider-iodine" class="text-[#CBD5E1]">Aerozol jodowy nadmorski (µg/m³):</label>
+                <span class="text-[#D8ED00] font-bold">{{ activeZoneInput().iodineUgM3 }} µg/m³</span>
+              </div>
+              <input
+                id="slider-iodine"
+                type="range"
+                min="0.5"
+                max="14"
+                step="0.5"
+                [value]="activeZoneInput().iodineUgM3"
+                (input)="updateZoneParam('iodineUgM3', $any($event.target).value)"
+                class="w-full accent-[#D8ED00] cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div class="flex justify-between font-mono mb-1">
+                <label for="slider-latency" class="text-[#CBD5E1]">Latencja światłowodu DWDM (ms — próg SLA &lt; 5.0 ms):</label>
+                <span
+                  class="font-bold"
+                  [class.text-[#D8ED00]]="activeZoneEval().fiberSlaPassed"
+                  [class.text-[#EF303F]]="!activeZoneEval().fiberSlaPassed"
+                >
+                  {{ activeZoneInput().fiberLatencyMs }} ms
+                </span>
+              </div>
+              <input
+                id="slider-latency"
+                type="range"
+                min="1.2"
+                max="7.5"
+                step="0.1"
+                [value]="activeZoneInput().fiberLatencyMs"
+                (input)="updateZoneParam('fiberLatencyMs', $any($event.target).value)"
+                class="w-full accent-[#D8ED00] cursor-pointer"
+              />
+            </div>
+          </div>
+
+          <!-- Anomaly Fault Injection & Cloud Persistence Controls -->
+          <div class="pt-3 border-t border-[#32263D] flex flex-wrap gap-2">
+            <button
+              type="button"
+              (click)="simulateSensorFaultOrRecovery(true)"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-[#EF303F] px-3 py-2 text-xs font-bold text-white hover:bg-[#d92635] transition-colors cursor-pointer"
+            >
+              <mat-icon class="!text-sm !w-4 !h-4">warning</mat-icon>
+              <span>Symuluj Błąd Czujnika (Flatline)</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="simulateSensorFaultOrRecovery(false)"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-[#130E17] border border-[#32263D] px-3 py-2 text-xs font-semibold text-[#D8ED00] hover:border-[#D8ED00] transition-colors cursor-pointer"
+            >
+              <mat-icon class="!text-sm !w-4 !h-4">verified</mat-icon>
+              <span>Przywróć Kalibrację GIOŚ</span>
+            </button>
+
+            <button
+              type="button"
+              [disabled]="savingToCloud()"
+              (click)="saveActiveTelemetryToCloud()"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-[#D8ED00] px-3 py-2 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] transition-colors cursor-pointer"
+            >
+              <mat-icon class="!text-sm !w-4 !h-4">cloud_upload</mat-icon>
+              <span>{{ savingToCloud() ? 'Zapisywanie...' : 'Zapisz Pomiar dCi na Koncie' }}</span>
+            </button>
+          </div>
+
+          @if (authStatusMessage()) {
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] px-3 py-2 text-xs font-mono text-[#D8ED00]">
+              {{ authStatusMessage() }}
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: MULTIMODAL GEMINI SUITE (CHATBOT, SEARCH/MAPS GROUNDING, IMAGE STUDIO, LIVE VOICE & TRANSCRIBE) -->
+    <section
+      id="konsola-ai"
+      aria-labelledby="agent-heading"
+      class="rounded-2xl border border-[#32263D] bg-[#1B1421] p-6 sm:p-8 space-y-6"
+    >
+      <div class="flex flex-col xl:flex-row xl:items-end justify-between gap-4 border-b border-[#32263D] pb-5">
+        <div class="space-y-1">
+          <div class="text-xs font-mono text-[#CBD5E1]">
+            02. Pakiet Multimodalny Gemini (Czat, Search/Maps Grounding, Obraz, Głos Live 3.8 &amp; Transkrypcja 3.5)
+          </div>
+          <h2 id="agent-heading" class="text-xl sm:text-2xl font-bold text-[#F8FAFC]">
+            Konsola Dual Agent AI, Uziemienie Google Search/Maps, Studio Obrazu &amp; Głosowy Audiokiosk
+          </h2>
+        </div>
+
+        <!-- 4-Capability Tab Selector -->
+        <div
+          role="group"
+          aria-label="Wybór modułu sztucznej inteligencji Gemini"
+          class="flex items-center gap-1.5 rounded-xl bg-[#130E17] p-1.5 border border-[#32263D] overflow-x-auto shrink-0"
+        >
+          <button
+            type="button"
+            (click)="activeAiTab.set('rag_chat')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="activeAiTab() === 'rag_chat'"
+            [class.text-[#130E17]]="activeAiTab() === 'rag_chat'"
+            [class.text-[#CBD5E1]]="activeAiTab() !== 'rag_chat'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">forum</mat-icon>
+            <span>1. Czat Gemini &amp; RAG</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="activeAiTab.set('grounding')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="activeAiTab() === 'grounding'"
+            [class.text-[#130E17]]="activeAiTab() === 'grounding'"
+            [class.text-[#CBD5E1]]="activeAiTab() !== 'grounding'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">travel_explore</mat-icon>
+            <span>2. Google Search &amp; Maps</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="activeAiTab.set('image_studio')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="activeAiTab() === 'image_studio'"
+            [class.text-[#130E17]]="activeAiTab() === 'image_studio'"
+            [class.text-[#CBD5E1]]="activeAiTab() !== 'image_studio'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">palette</mat-icon>
+            <span>3. Kreator &amp; Edytor Obrazu</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="activeAiTab.set('voice_audio')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="activeAiTab() === 'voice_audio'"
+            [class.text-[#130E17]]="activeAiTab() === 'voice_audio'"
+            [class.text-[#CBD5E1]]="activeAiTab() !== 'voice_audio'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">mic</mat-icon>
+            <span>4. Głos Live 3.8 &amp; Transkrypcja</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left 7 Cols: Active Gemini Multimodal Workspace -->
+        <div class="lg:col-span-7 space-y-5">
+          @switch (activeAiTab()) {
+            @case ('rag_chat') {
+              <div class="space-y-5">
+                <!-- Domain Mode & Gemini Model Selector -->
+                <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#32263D] bg-[#130E17] p-3">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <button
+                      type="button"
+                      (click)="setAgentMode('smart_grid_baltica')"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
+                      [class.bg-[#D8ED00]]="agentMode() === 'smart_grid_baltica'"
+                      [class.text-[#130E17]]="agentMode() === 'smart_grid_baltica'"
+                      [class.text-[#CBD5E1]]="agentMode() !== 'smart_grid_baltica'"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">hub</mat-icon>
+                      <span>Smart Grid (Mgr)</span>
+                    </button>
+                    <button
+                      type="button"
+                      (click)="setAgentMode('hotel_gdansk')"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
+                      [class.bg-[#D8ED00]]="agentMode() === 'hotel_gdansk'"
+                      [class.text-[#130E17]]="agentMode() === 'hotel_gdansk'"
+                      [class.text-[#CBD5E1]]="agentMode() !== 'hotel_gdansk'"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">hotel</mat-icon>
+                      <span>Hotel Gdańsk (Inż.)</span>
+                    </button>
+                    <button
+                      type="button"
+                      (click)="setAgentMode('legal_govtech')"
+                      class="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
+                      [class.bg-[#D8ED00]]="agentMode() === 'legal_govtech'"
+                      [class.text-[#130E17]]="agentMode() === 'legal_govtech'"
+                      [class.text-[#CBD5E1]]="agentMode() !== 'legal_govtech'"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5">gavel</mat-icon>
+                      <span>GovTech 11k PLN</span>
+                    </button>
+                  </div>
+
+                  <div class="flex items-center gap-1.5 font-mono text-xs">
+                    <span class="text-[#CBD5E1]">Model:</span>
+                    <button
+                      type="button"
+                      (click)="selectedChatModel.set('gemini-3.8-flash')"
+                      class="rounded-md px-2 py-1 text-[11px] cursor-pointer"
+                      [class.bg-[#D8ED00]]="selectedChatModel() === 'gemini-3.8-flash'"
+                      [class.text-[#130E17]]="selectedChatModel() === 'gemini-3.8-flash'"
+                      [class.text-[#CBD5E1]]="selectedChatModel() !== 'gemini-3.8-flash'"
+                    >
+                      3.8-flash
+                    </button>
+                    <button
+                      type="button"
+                      (click)="selectedChatModel.set('gemini-3.1-flash-lite')"
+                      class="rounded-md px-2 py-1 text-[11px] cursor-pointer"
+                      [class.bg-[#D8ED00]]="selectedChatModel() === 'gemini-3.1-flash-lite'"
+                      [class.text-[#130E17]]="selectedChatModel() === 'gemini-3.1-flash-lite'"
+                      [class.text-[#CBD5E1]]="selectedChatModel() !== 'gemini-3.1-flash-lite'"
+                    >
+                      3.1-flash-lite
+                    </button>
+                    <button
+                      type="button"
+                      (click)="selectedChatModel.set('gemini-4-argon')"
+                      class="rounded-md px-2 py-1 text-[11px] cursor-pointer"
+                      [class.bg-[#D8ED00]]="selectedChatModel() === 'gemini-4-argon'"
+                      [class.text-[#130E17]]="selectedChatModel() === 'gemini-4-argon'"
+                      [class.text-[#CBD5E1]]="selectedChatModel() !== 'gemini-4-argon'"
+                    >
+                      4-argon
+                    </button>
+                  </div>
+                </div>
+
+                <form
+                  [formGroup]="agentForm"
+                  (ngSubmit)="submitAgentQuery()"
+                  class="rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-4"
+                >
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <label for="agent-prompt-input" class="text-xs font-bold text-[#F8FAFC]">
+                      Wieloturowy Czat Gemini &amp; Agent RAG (Zero Data Retention · SHA-256 Audit):
+                    </label>
+                    <span class="text-xs font-mono text-[#D8ED00]">
+                      Aktywny: {{ selectedChatModel() }} · {{ activeZoneEval().zoneName }}
+                    </span>
+                  </div>
+
+                  <textarea
+                    id="agent-prompt-input"
+                    formControlName="prompt"
+                    rows="3"
+                    placeholder="Wpisz zapytanie o taryfy dynamiczne Hotelu Gdańsk, sieć Smart Grid Ustka-Słupsk-Trójmiasto lub budżet 11 000 PLN audiokiosków..."
+                    class="w-full rounded-xl border border-[#32263D] bg-[#130E17] p-3.5 text-sm text-[#F8FAFC] placeholder-[#94A3B8] focus:border-[#D8ED00]"
+                  ></textarea>
+
+                  @if (agentError()) {
+                    <div role="alert" class="text-xs font-mono text-[#EF303F]">
+                      {{ agentError() }}
+                    </div>
+                  }
+
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        (click)="applyPresetPrompt('Jakie powietrze dCi jest teraz w Ustce i jaka jest prognoza mocy z Baltica WindShare?')"
+                        class="inline-flex items-center gap-1 rounded-lg bg-[#130E17] border border-[#32263D] px-2.5 py-1.5 text-xs text-[#CBD5E1] hover:border-[#D8ED00] cursor-pointer"
+                      >
+                        <mat-icon class="!text-xs !w-3.5 !h-3.5">air</mat-icon>
+                        <span>Scenariusz Ustka dCi + Baltica</span>
+                      </button>
+                      <button
+                        type="button"
+                        (click)="applyPresetPrompt('Wyjaśnij budżet PFRON 16 850 PLN (limit 143 400 PLN) oraz grant FE Pomorza 1.1 dla laboratorium.')"
+                        class="inline-flex items-center gap-1 rounded-lg bg-[#130E17] border border-[#32263D] px-2.5 py-1.5 text-xs text-[#CBD5E1] hover:border-[#D8ED00] cursor-pointer"
+                      >
+                        <mat-icon class="!text-xs !w-3.5 !h-3.5">account_balance</mat-icon>
+                        <span>Scenariusz PFRON &amp; FE Pomorza</span>
+                      </button>
+                    </div>
+
+                    <button
+                      type="submit"
+                      [disabled]="agentLoading()"
+                      class="inline-flex items-center gap-2 rounded-xl bg-[#D8ED00] px-5 py-2.5 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] disabled:opacity-50 transition-colors cursor-pointer"
+                    >
+                      <mat-icon class="!text-base !w-4 !h-4 leading-none">send</mat-icon>
+                      <span>{{ agentLoading() ? 'Przetwarzanie RAG...' : 'Wyślij do Czatu Gemini' }}</span>
+                    </button>
+                  </div>
+                </form>
+
+                <!-- Agent Responses Feed -->
+                <div class="space-y-4">
+                  @for (item of agentHistory(); track item.id) {
+                    <article class="rounded-xl border border-[#32263D] bg-[#130E17] p-5 space-y-3">
+                      <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#CBD5E1] border-b border-[#32263D] pb-2.5">
+                        <div>
+                          <span class="text-[#D8ED00] font-bold">{{ item.modeLabel }}</span>
+                          <span aria-hidden="true"> · </span>
+                          <span>{{ item.engine }}</span>
+                        </div>
+                        <div>
+                          <span>BERTScore: {{ item.metrics.bertScore }}</span>
+                          <span aria-hidden="true"> · </span>
+                          <span>CodeBLEU: {{ item.metrics.codeBleu }}</span>
+                        </div>
+                      </div>
+
+                      <div class="text-xs font-semibold text-[#CBD5E1]">
+                        Zapytanie: <span class="text-[#F8FAFC]">"{{ item.query }}"</span>
+                      </div>
+
+                      <div class="text-sm text-[#F8FAFC] whitespace-pre-line leading-relaxed">
+                        {{ item.reply }}
+                      </div>
+
+                      <div class="pt-2 border-t border-[#32263D] text-[11px] font-mono text-[#94A3B8] space-y-1">
+                        <div>Źródła RAG: {{ item.citations.join(' | ') }}</div>
+                        <div class="truncate">SHA-256 Chain: {{ item.metrics.sha256Audit }}</div>
+                      </div>
+                    </article>
+                  }
+                </div>
+              </div>
+            }
+
+            @case ('grounding') {
+              <div class="rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#32263D] pb-3">
+                  <div>
+                    <div class="text-xs font-mono text-[#D8ED00]">
+                      gemini-3.8-flash · Narzędzia googleSearch &amp; googleMaps Grounding
+                    </div>
+                    <h3 class="text-base font-bold text-[#F8FAFC]">
+                      Weryfikacja Danych z Wyszukiwarki Google i Lokalizacji Google Maps
+                    </h3>
+                  </div>
+                </div>
+
+                <form [formGroup]="groundingForm" class="space-y-3">
+                  <input
+                    type="text"
+                    formControlName="query"
+                    placeholder="Wpisz zapytanie o infrastrukturę morską PGE Baltica, stację GPZ Słupsk lub obiekty w Gdańsku..."
+                    class="w-full rounded-xl border border-[#32263D] bg-[#130E17] p-3 text-sm text-[#F8FAFC]"
+                  />
+
+                  <div class="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      [disabled]="groundingLoading()"
+                      (click)="runGroundingQuery('search')"
+                      class="inline-flex items-center gap-1.5 rounded-xl bg-[#D8ED00] px-4 py-2.5 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">search</mat-icon>
+                      <span>{{ groundingLoading() && groundingMode() === 'search' ? 'Szukanie...' : 'Uziemienie Google Search' }}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      [disabled]="groundingLoading()"
+                      (click)="runGroundingQuery('maps')"
+                      class="inline-flex items-center gap-1.5 rounded-xl border border-[#32263D] bg-[#130E17] px-4 py-2.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4 text-[#D8ED00]">place</mat-icon>
+                      <span>{{ groundingLoading() && groundingMode() === 'maps' ? 'Geolokalizacja...' : 'Uziemienie Google Maps (Ustka / Słupsk / Gdańsk)' }}</span>
+                    </button>
+                  </div>
+                </form>
+
+                <div class="rounded-xl border border-[#32263D] bg-[#130E17] p-4 space-y-3">
+                  <div class="text-sm text-[#F8FAFC] whitespace-pre-line leading-relaxed">
+                    {{ groundingResultText() }}
+                  </div>
+
+                  <div class="pt-3 border-t border-[#32263D] space-y-2">
+                    <div class="text-xs font-mono text-[#D8ED00]">
+                      Zweryfikowane Linki Źródłowe (groundingChunks):
+                    </div>
+                    <div class="grid grid-cols-1 gap-2">
+                      @for (link of groundingLinks(); track link.uri) {
+                        <a
+                          [href]="link.uri"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="flex items-center justify-between gap-2 rounded-lg border border-[#32263D] bg-[#241B2C] px-3 py-2 text-xs text-[#F8FAFC] hover:border-[#D8ED00] transition-colors"
+                        >
+                          <span class="font-semibold">{{ link.title }}</span>
+                          <span class="font-mono text-[11px] text-[#D8ED00] shrink-0">Otwórz ↗</span>
+                        </a>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+
+            @case ('image_studio') {
+              <div class="rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#32263D] pb-3">
+                  <div>
+                    <div class="text-xs font-mono text-[#D8ED00]">
+                      Generowanie i Edycja Obrazów AI (Darmowy Domyślny: gemini-3.1-flash-lite-image)
+                    </div>
+                    <h3 class="text-base font-bold text-[#F8FAFC]">
+                      Studio Wizualizacji Architektonicznych Smart Grid &amp; Biurka 180°
+                    </h3>
+                  </div>
+
+                  <div class="flex items-center gap-1.5 font-mono text-xs">
+                    <button
+                      type="button"
+                      (click)="imageAspectRatio.set('16:9')"
+                      class="rounded-md px-2.5 py-1 cursor-pointer"
+                      [class.bg-[#D8ED00]]="imageAspectRatio() === '16:9'"
+                      [class.text-[#130E17]]="imageAspectRatio() === '16:9'"
+                      [class.text-[#CBD5E1]]="imageAspectRatio() !== '16:9'"
+                    >
+                      16:9
+                    </button>
+                    <button
+                      type="button"
+                      (click)="imageAspectRatio.set('1:1')"
+                      class="rounded-md px-2.5 py-1 cursor-pointer"
+                      [class.bg-[#D8ED00]]="imageAspectRatio() === '1:1'"
+                      [class.text-[#130E17]]="imageAspectRatio() === '1:1'"
+                      [class.text-[#CBD5E1]]="imageAspectRatio() !== '1:1'"
+                    >
+                      1:1
+                    </button>
+                    <button
+                      type="button"
+                      (click)="imageAspectRatio.set('4:3')"
+                      class="rounded-md px-2.5 py-1 cursor-pointer"
+                      [class.bg-[#D8ED00]]="imageAspectRatio() === '4:3'"
+                      [class.text-[#130E17]]="imageAspectRatio() === '4:3'"
+                      [class.text-[#CBD5E1]]="imageAspectRatio() !== '4:3'"
+                    >
+                      4:3
+                    </button>
+                  </div>
+                </div>
+
+                <form [formGroup]="imageForm" (ngSubmit)="generateOrEditStudioImage()" class="space-y-3">
+                  <textarea
+                    formControlName="prompt"
+                    rows="2"
+                    placeholder="Opisz wizualizację (np. baza O&M w Porcie Ustka, audiokiosk WCAG 2.1 AAA w przychodni POZ lub biurko 180° z iPad Pro M5)..."
+                    class="w-full rounded-xl border border-[#32263D] bg-[#130E17] p-3 text-sm text-[#F8FAFC]"
+                  ></textarea>
+
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <label class="inline-flex items-center gap-2 rounded-lg border border-[#32263D] bg-[#130E17] px-3 py-2 text-xs text-[#CBD5E1] hover:border-[#D8ED00] cursor-pointer">
+                      <mat-icon class="!text-sm !w-4 !h-4 text-[#D8ED00]">upload_file</mat-icon>
+                      <span>{{ uploadedEditImageName() || 'Wgraj obraz bazowy do edycji (opcjonalnie)' }}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        (change)="onEditImageFileSelected($event)"
+                        class="hidden"
+                      />
+                    </label>
+
+                    <button
+                      type="submit"
+                      [disabled]="imageLoading()"
+                      class="inline-flex items-center gap-2 rounded-xl bg-[#D8ED00] px-4 py-2.5 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">auto_awesome</mat-icon>
+                      <span>{{ imageLoading() ? 'Renderowanie...' : 'Generuj / Edytuj Wizualizację' }}</span>
+                    </button>
+                  </div>
+                </form>
+
+                <div class="rounded-xl border border-[#32263D] bg-[#130E17] p-4 space-y-2">
+                  <div class="text-xs font-mono text-[#D8ED00]">
+                    {{ generatedImageCaption() }}
+                  </div>
+                  @if (generatedImageUrl()) {
+                    <img
+                      [src]="generatedImageUrl()"
+                      alt="Wygenerowana wizualizacja architektoniczna Smart Grid"
+                      referrerpolicy="no-referrer"
+                      class="w-full max-h-[320px] object-contain rounded-lg border border-[#32263D]"
+                    />
+                  }
+                </div>
+              </div>
+            }
+
+            @case ('voice_audio') {
+              <div class="rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-5">
+                <!-- Part A: Real-time Voice Conversations (gemini-3.8-live WebSocket) -->
+                <div class="space-y-3 border-b border-[#32263D] pb-4">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <div class="text-xs font-mono text-[#D8ED00]">
+                        Konwersacje Głosowe Live API · Model: gemini-3.8-live (WebSocket /api/live)
+                      </div>
+                      <h3 class="text-base font-bold text-[#F8FAFC]">
+                        Most Głosowy Czasu Rzeczywistego (16kHz PCM In / 24kHz Audio Out)
+                      </h3>
+                    </div>
+
+                    <button
+                      type="button"
+                      (click)="toggleLiveVoiceSession()"
+                      class="inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-bold transition-colors cursor-pointer"
+                      [class.bg-[#EF303F]]="liveConnected()"
+                      [class.text-white]="liveConnected()"
+                      [class.bg-[#D8ED00]]="!liveConnected()"
+                      [class.text-[#130E17]]="!liveConnected()"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">
+                        {{ liveConnected() ? 'call_end' : 'record_voice_over' }}
+                      </mat-icon>
+                      <span>{{ liveConnected() ? 'Zakończ Sesję Live' : 'Połącz z Gemini 3.8 Live' }}</span>
+                    </button>
+                  </div>
+
+                  <div class="text-xs font-mono text-[#CBD5E1]">
+                    Status: <span class="text-[#D8ED00]">{{ liveStatusLabel() }}</span>
+                  </div>
+
+                  <div class="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      (click)="sendLiveVoicePrompt('Podaj status pętli światłowodowej DWDM Ustka-Słupsk oraz indeks dCi.')"
+                      class="inline-flex items-center gap-1 rounded-lg border border-[#32263D] bg-[#130E17] px-3 py-1.5 text-xs text-[#F8FAFC] hover:border-[#D8ED00] cursor-pointer"
+                    >
+                      <mat-icon class="!text-xs !w-3.5 !h-3.5 text-[#D8ED00]">graphic_eq</mat-icon>
+                      <span>Testuj Komendę Głosową Live (Ustka DWDM)</span>
+                    </button>
+                  </div>
+
+                  <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3 space-y-1.5 text-xs font-mono max-h-[150px] overflow-y-auto">
+                    @for (line of liveTranscriptFeed(); track line) {
+                      <div class="text-[#F8FAFC]">{{ line }}</div>
+                    }
+                  </div>
+                </div>
+
+                <!-- Part B: Microphone Audio Transcription (gemini-3.5-transcribe) -->
+                <div class="space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <div class="text-xs font-mono text-[#D8ED00]">
+                        Transkrypcja Nagrań Mikrofonowych · Model: gemini-3.5-transcribe
+                      </div>
+                      <h3 class="text-base font-bold text-[#F8FAFC]">
+                        Rejestrator Głosowych Notatek Terenowych (Ustka / Słupsk / Gdańsk)
+                      </h3>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                      <button
+                        type="button"
+                        (click)="toggleMicrophoneRecording()"
+                        class="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold cursor-pointer"
+                        [class.bg-[#EF303F]]="isRecordingAudio()"
+                        [class.text-white]="isRecordingAudio()"
+                        [class.bg-[#D8ED00]]="!isRecordingAudio()"
+                        [class.text-[#130E17]]="!isRecordingAudio()"
+                      >
+                        <mat-icon class="!text-sm !w-4 !h-4">
+                          {{ isRecordingAudio() ? 'stop_circle' : 'mic' }}
+                        </mat-icon>
+                        <span>{{ isRecordingAudio() ? 'Zatrzymaj i Transkrybuj' : 'Nagraj z Mikrofonu' }}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        [disabled]="transcribingAudio()"
+                        (click)="submitAudioForTranscription('', 'audio/webm')"
+                        class="inline-flex items-center gap-1.5 rounded-xl border border-[#32263D] bg-[#130E17] px-3.5 py-2 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] cursor-pointer"
+                      >
+                        <mat-icon class="!text-sm !w-4 !h-4 text-[#D8ED00]">subtitles</mat-icon>
+                        <span>{{ transcribingAudio() ? 'Transkrypcja...' : 'Transkrybuj Próbkę Terenową' }}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3 text-xs font-mono text-[#D8ED00]">
+                    {{ audioTranscriptionResult() }}
+                  </div>
+                </div>
+              </div>
+            }
+          }
+        </div>
+
+        <!-- Right 5 Cols: GovTech Audiokiosk Simulator (11,000 PLN PoC), Rust Sanitizer & Cloud Records -->
+        <div class="lg:col-span-5 space-y-5">
+          <div class="rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-4">
+            <div class="border-b border-[#32263D] pb-3">
+              <div class="text-xs font-mono text-[#D8ED00]">
+                Pilotaż GovTech / PPP · Budżet PoC: 11 000 PLN brutto (~2 500 EUR, poniżej PZP)
+              </div>
+              <h3 class="text-base font-bold text-[#F8FAFC] mt-0.5">
+                Symulator 3 Audiokiosków „Dostępna Gmina – Cyfrowa Samopomoc”
+              </h3>
+            </div>
+
+            <p class="text-xs text-[#CBD5E1] leading-relaxed">
+              Testuj syntezę mowy <strong class="text-[#F8FAFC]">TTS (WCAG 2.1 AAA)</strong> dla 3 lokalizacji
+              krytycznych wspieranych przez sieć <strong class="text-[#D8ED00]">10 lokalnych wolontariuszy (Human-in-the-Loop)</strong>.
+              Wysokość montażu: <span class="font-mono">80–110 cm</span>.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <button
+                type="button"
+                (click)="speakKioskAnnouncement('ops')"
+                class="flex flex-col items-start justify-between rounded-xl border p-3 text-left transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="selectedKioskPoint() === 'ops'"
+                [class.text-[#130E17]]="selectedKioskPoint() === 'ops'"
+                [class.border-[#D8ED00]]="selectedKioskPoint() === 'ops'"
+                [class.bg-[#130E17]]="selectedKioskPoint() !== 'ops'"
+                [class.text-[#F8FAFC]]="selectedKioskPoint() !== 'ops'"
+                [class.border-[#32263D]]="selectedKioskPoint() !== 'ops'"
+              >
+                <div class="flex items-center gap-1.5 text-xs font-bold">
+                  <mat-icon class="!text-base !w-4 !h-4">record_voice_over</mat-icon>
+                  <span>1. OPS Gmina</span>
+                </div>
+                <span class="text-[11px] opacity-85 mt-1 font-mono">Wnioski &amp; Asysta</span>
+              </button>
+
+              <button
+                type="button"
+                (click)="speakKioskAnnouncement('biblioteka')"
+                class="flex flex-col items-start justify-between rounded-xl border p-3 text-left transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="selectedKioskPoint() === 'biblioteka'"
+                [class.text-[#130E17]]="selectedKioskPoint() === 'biblioteka'"
+                [class.border-[#D8ED00]]="selectedKioskPoint() === 'biblioteka'"
+                [class.bg-[#130E17]]="selectedKioskPoint() !== 'biblioteka'"
+                [class.text-[#F8FAFC]]="selectedKioskPoint() !== 'biblioteka'"
+                [class.border-[#32263D]]="selectedKioskPoint() !== 'biblioteka'"
+              >
+                <div class="flex items-center gap-1.5 text-xs font-bold">
+                  <mat-icon class="!text-base !w-4 !h-4">local_library</mat-icon>
+                  <span>2. Biblioteka</span>
+                </div>
+                <span class="text-[11px] opacity-85 mt-1 font-mono">Edukacja &amp; dCi</span>
+              </button>
+
+              <button
+                type="button"
+                (click)="speakKioskAnnouncement('poz')"
+                class="flex flex-col items-start justify-between rounded-xl border p-3 text-left transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="selectedKioskPoint() === 'poz'"
+                [class.text-[#130E17]]="selectedKioskPoint() === 'poz'"
+                [class.border-[#D8ED00]]="selectedKioskPoint() === 'poz'"
+                [class.bg-[#130E17]]="selectedKioskPoint() !== 'poz'"
+                [class.text-[#F8FAFC]]="selectedKioskPoint() !== 'poz'"
+                [class.border-[#32263D]]="selectedKioskPoint() !== 'poz'"
+              >
+                <div class="flex items-center gap-1.5 text-xs font-bold">
+                  <mat-icon class="!text-base !w-4 !h-4">medical_services</mat-icon>
+                  <span>3. Przychodnia POZ</span>
+                </div>
+                <span class="text-[11px] opacity-85 mt-1 font-mono">Rejestracja Zero-PII</span>
+              </button>
+            </div>
+
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3 text-xs font-mono space-y-2">
+              <div class="text-[#D8ED00]">{{ ttsStatus() }}</div>
+              <div class="flex items-center justify-between pt-2 border-t border-[#32263D]">
+                <span>Gniazdo Jack 3.5mm (auto-wyciszenie głośnika):</span>
+                <button
+                  type="button"
+                  (click)="toggleHeadphoneJack()"
+                  class="inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-bold cursor-pointer"
+                  [class.bg-[#D8ED00]]="kioskHeadphonePlugged()"
+                  [class.text-[#130E17]]="kioskHeadphonePlugged()"
+                  [class.bg-[#241B2C]]="!kioskHeadphonePlugged()"
+                  [class.text-[#CBD5E1]]="!kioskHeadphonePlugged()"
+                >
+                  <mat-icon class="!text-xs !w-3.5 !h-3.5">headphones</mat-icon>
+                  <span>{{ kioskHeadphonePlugged() ? 'Słuchawki Podłączone' : 'Głośnik Zewnętrzny' }}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 11 000 PLN PoC Breakdown Table -->
+            <div class="pt-2 border-t border-[#32263D] text-xs font-mono tabular-nums space-y-1.5">
+              <div class="flex justify-between">
+                <span class="text-[#CBD5E1]">1. Sprzęt (3x terminal + audio + obudowy):</span>
+                <span class="text-[#F8FAFC] font-bold">6 600 PLN (2 200 PLN/pkt)</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#CBD5E1]">2. Oprogramowanie (Kiosk-Mode, TTS, Zero-PII):</span>
+                <span class="text-[#F8FAFC] font-bold">1 900 PLN</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#CBD5E1]">3. Wdrożenie, druk powiększony &amp; 10 wolontariuszy:</span>
+                <span class="text-[#F8FAFC] font-bold">2 500 PLN</span>
+              </div>
+              <div class="flex justify-between pt-1.5 border-t border-[#32263D] text-[#D8ED00] font-bold">
+                <span>RAZEM BUDŻET PoC (Poniżej progu PZP):</span>
+                <span>11 000 PLN brutto</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rust Zero-Knowledge EXIF Sanitizer Box -->
+          <div class="rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-3">
+            <div class="text-xs font-mono text-[#CBD5E1]">
+              Moduł Legal Tech #2 · Ochrona Sygnalistów (Rust Crypto Edge)
+            </div>
+            <h3 class="text-sm font-bold text-[#F8FAFC]">
+              Sanitacja Metadanych EXIF / XMP / OLE (Zero-Knowledge)
+            </h3>
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3 text-xs font-mono text-[#D8ED00]">
+              {{ rustSanitizerLastFile() }}
+            </div>
+            <button
+              type="button"
+              (click)="simulateRustExifSanitize()"
+              class="inline-flex items-center gap-1.5 rounded-lg bg-[#130E17] border border-[#32263D] px-3.5 py-2 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] transition-colors cursor-pointer"
+            >
+              <mat-icon class="!text-sm !w-4 !h-4">shield</mat-icon>
+              <span>Przetestuj Sanitację Pliku w Warstwie Brzegowej (Rust)</span>
+            </button>
+          </div>
+
+          @if (currentUser(); as user) {
+            <div class="rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-3">
+              <div class="text-xs font-mono text-[#D8ED00]">
+                Konto Architekta ({{ user.email }})
+              </div>
+              <h3 class="text-sm font-bold text-[#F8FAFC]">
+                Zapisane Pomiary dCi ({{ savedTelemetryList().length }}) &amp; Sesje AI ({{ savedAiSessionsList().length }})
+              </h3>
+              @if (savedTelemetryList().length > 0) {
+                <div class="space-y-1.5 max-h-[140px] overflow-y-auto text-xs font-mono">
+                  @for (snap of savedTelemetryList(); track snap.id) {
+                    <div class="rounded-lg border border-[#32263D] bg-[#130E17] px-3 py-1.5 flex justify-between">
+                      <span class="text-[#F8FAFC]">{{ snap.zoneName }}</span>
+                      <span class="text-[#D8ED00]">dCi {{ snap.dCiScore }}/100 · {{ snap.fiberLatencyMs }} ms</span>
+                    </div>
+                  }
+                </div>
+              } @else {
+                <div class="text-xs text-[#CBD5E1]">
+                  Brak zapisanych pomiarów — kliknij „Zapisz Pomiar dCi na Koncie” w sekcji Smart Grid.
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: HARDWARE DESK 90°/180° & MOBILE OFF-GRID ENERGY BALANCE -->
+    <section
+      id="biurko-energia"
+      aria-labelledby="hardware-heading"
+      class="rounded-2xl border border-[#32263D] bg-[#1B1421] p-6 sm:p-8 space-y-6"
+    >
+      <div class="flex flex-col xl:flex-row xl:items-end justify-between gap-4 border-b border-[#32263D] pb-5">
+        <div class="space-y-1">
+          <div class="text-xs font-mono text-[#CBD5E1]">
+            03. Specyfikacja Sprzętowa Biurka Anti Gravity · Stacjonarne ~1000W (2x Listwa 9-wejść) &amp; Mobilne ~6 kg
+          </div>
+          <h2 id="hardware-heading" class="text-xl sm:text-2xl font-bold text-[#F8FAFC]">
+            Architektura Wielourządzeniowa, Zawias Acer Dual 180° &amp; Symulator Zasilania Off-Grid
+          </h2>
+        </div>
+
+        <!-- Desk Ergonomics Mode Selector -->
+        <div
+          role="group"
+          aria-label="Tryb konfiguracji ekranów"
+          class="flex items-center gap-1.5 rounded-xl bg-[#130E17] p-1.5 border border-[#32263D] overflow-x-auto shrink-0"
+        >
+          <button
+            type="button"
+            (click)="deskLayoutMode.set('book_90')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="deskLayoutMode() === 'book_90'"
+            [class.text-[#130E17]]="deskLayoutMode() === 'book_90'"
+            [class.text-[#CBD5E1]]="deskLayoutMode() !== 'book_90'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">menu_book</mat-icon>
+            <span>Zawias 90° (Książka: Kod + Terminal)</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="deskLayoutMode.set('flat_180')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="deskLayoutMode() === 'flat_180'"
+            [class.text-[#130E17]]="deskLayoutMode() === 'flat_180'"
+            [class.text-[#CBD5E1]]="deskLayoutMode() !== 'flat_180'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">table_chart</mat-icon>
+            <span>Zawias 180° (Stół 37" Smart Grid)</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="deskLayoutMode.set('projector_120')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            [class.bg-[#D8ED00]]="deskLayoutMode() === 'projector_120'"
+            [class.text-[#130E17]]="deskLayoutMode() === 'projector_120'"
+            [class.text-[#CBD5E1]]="deskLayoutMode() !== 'projector_120'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">present_to_all</mat-icon>
+            <span>Projektor 120" (Mission Control)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left 6 Cols: Off-Grid Energy Balance Calculator -->
+        <div class="lg:col-span-6 rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-5">
+          <div class="flex items-center justify-between border-b border-[#32263D] pb-3">
+            <div>
+              <div class="text-xs font-mono text-[#D8ED00]">
+                Symulator Terenowy (Plaża Ustka / Port / Trójmiasto)
+              </div>
+              <h3 class="text-base font-bold text-[#F8FAFC]">
+                Bilans Czasu Pracy Mobilnego Zestawu (~6 kg)
+              </h3>
+            </div>
+            <div class="text-right font-mono tabular-nums">
+              <div class="text-xs text-[#CBD5E1]">Łączny Czas Pracy</div>
+              <div class="text-2xl font-extrabold text-[#D8ED00]">
+                {{ offGridComparison().currentSelected.totalHours }} h
+              </div>
+            </div>
+          </div>
+
+          <!-- Load Profile Selection -->
+          <div class="space-y-2">
+            <div class="text-xs font-semibold text-[#CBD5E1]">
+              1. Wybierz Konfigurację Obciążenia Mobilnego:
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <button
+                type="button"
+                (click)="setMobileLoadWatts(45)"
+                class="rounded-lg border p-2.5 text-left text-xs font-mono transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="mobileLoadWatts() === 45"
+                [class.text-[#130E17]]="mobileLoadWatts() === 45"
+                [class.border-[#D8ED00]]="mobileLoadWatts() === 45"
+                [class.bg-[#130E17]]="mobileLoadWatts() !== 45"
+                [class.text-[#F8FAFC]]="mobileLoadWatts() !== 45"
+                [class.border-[#32263D]]="mobileLoadWatts() !== 45"
+              >
+                <div class="font-bold flex items-center gap-1">
+                  <mat-icon class="!text-sm !w-4 !h-4">devices</mat-icon>
+                  <span>45W Bazowy</span>
+                </div>
+                <div class="text-[11px] opacity-85 mt-0.5">iPad Pro M5 + Acer Dual</div>
+              </button>
+
+              <button
+                type="button"
+                (click)="setMobileLoadWatts(55)"
+                class="rounded-lg border p-2.5 text-left text-xs font-mono transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="mobileLoadWatts() === 55"
+                [class.text-[#130E17]]="mobileLoadWatts() === 55"
+                [class.border-[#D8ED00]]="mobileLoadWatts() === 55"
+                [class.bg-[#130E17]]="mobileLoadWatts() !== 55"
+                [class.text-[#F8FAFC]]="mobileLoadWatts() !== 55"
+                [class.border-[#32263D]]="mobileLoadWatts() !== 55"
+              >
+                <div class="font-bold flex items-center gap-1">
+                  <mat-icon class="!text-sm !w-4 !h-4">tablet_mac</mat-icon>
+                  <span>55W + MatePad</span>
+                </div>
+                <div class="text-[11px] opacity-85 mt-0.5">+ PaperMatte 11.5"</div>
+              </button>
+
+              <button
+                type="button"
+                (click)="setMobileLoadWatts(60)"
+                class="rounded-lg border p-2.5 text-left text-xs font-mono transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="mobileLoadWatts() === 60"
+                [class.text-[#130E17]]="mobileLoadWatts() === 60"
+                [class.border-[#D8ED00]]="mobileLoadWatts() === 60"
+                [class.bg-[#130E17]]="mobileLoadWatts() !== 60"
+                [class.text-[#F8FAFC]]="mobileLoadWatts() !== 60"
+                [class.border-[#32263D]]="mobileLoadWatts() !== 60"
+              >
+                <div class="font-bold flex items-center gap-1">
+                  <mat-icon class="!text-sm !w-4 !h-4">sensors</mat-icon>
+                  <span>60W Pełny Lab</span>
+                </div>
+                <div class="text-[11px] opacity-85 mt-0.5">+ Smartfon &amp; Sonda dCi</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Solar Panel Selection -->
+          <div class="space-y-2">
+            <div class="text-xs font-semibold text-[#CBD5E1]">
+              2. Wybierz Moc Składanego Panelu Solarnego (5h nasłonecznienia):
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                (click)="setSolarPanelWatts(22.5)"
+                class="rounded-lg border p-2.5 text-left text-xs font-mono transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="solarPanelWatts() === 22.5"
+                [class.text-[#130E17]]="solarPanelWatts() === 22.5"
+                [class.border-[#D8ED00]]="solarPanelWatts() === 22.5"
+                [class.bg-[#130E17]]="solarPanelWatts() !== 22.5"
+                [class.text-[#F8FAFC]]="solarPanelWatts() !== 22.5"
+                [class.border-[#32263D]]="solarPanelWatts() !== 22.5"
+              >
+                <div class="font-bold flex items-center gap-1">
+                  <mat-icon class="!text-sm !w-4 !h-4">wb_sunny</mat-icon>
+                  <span>22.5W Obecny</span>
+                </div>
+                <div class="text-[11px] opacity-85">+112.5 Wh (+2.5h)</div>
+              </button>
+
+              <button
+                type="button"
+                (click)="setSolarPanelWatts(60)"
+                class="rounded-lg border p-2.5 text-left text-xs font-mono transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="solarPanelWatts() === 60"
+                [class.text-[#130E17]]="solarPanelWatts() === 60"
+                [class.border-[#D8ED00]]="solarPanelWatts() === 60"
+                [class.bg-[#130E17]]="solarPanelWatts() !== 60"
+                [class.text-[#F8FAFC]]="solarPanelWatts() !== 60"
+                [class.border-[#32263D]]="solarPanelWatts() !== 60"
+              >
+                <div class="font-bold flex items-center gap-1">
+                  <mat-icon class="!text-sm !w-4 !h-4">solar_power</mat-icon>
+                  <span>60W Optymalny</span>
+                </div>
+                <div class="text-[11px] opacity-85">+300 Wh (13.7h+)</div>
+              </button>
+
+              <button
+                type="button"
+                (click)="setSolarPanelWatts(100)"
+                class="rounded-lg border p-2.5 text-left text-xs font-mono transition-colors cursor-pointer"
+                [class.bg-[#D8ED00]]="solarPanelWatts() === 100"
+                [class.text-[#130E17]]="solarPanelWatts() === 100"
+                [class.border-[#D8ED00]]="solarPanelWatts() === 100"
+                [class.bg-[#130E17]]="solarPanelWatts() !== 100"
+                [class.text-[#F8FAFC]]="solarPanelWatts() !== 100"
+                [class.border-[#32263D]]="solarPanelWatts() !== 100"
+              >
+                <div class="font-bold flex items-center gap-1">
+                  <mat-icon class="!text-sm !w-4 !h-4">offline_bolt</mat-icon>
+                  <span>100W PFRON</span>
+                </div>
+                <div class="text-[11px] opacity-85">+500 Wh (Cała doba)</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Visual Bar Breakdown -->
+          <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-4 space-y-3 font-mono text-xs tabular-nums">
+            <div class="flex justify-between">
+              <span class="text-[#CBD5E1]">Stacja Anker SOLIX C200 (192Wh LiFePO4):</span>
+              <span class="text-[#F8FAFC] font-bold">{{ offGridComparison().currentSelected.stationHours }} h</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#CBD5E1]">Bufor 2x Powerbank 20 000 mAh Solar (+148Wh):</span>
+              <span class="text-[#F8FAFC] font-bold">+{{ offGridComparison().currentSelected.powerbankHours }} h</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#CBD5E1]">Uzysk Solarny ({{ solarPanelWatts() }}W × {{ sunHours() }}h słońca = +{{ offGridComparison().currentSelected.solarGeneratedWh }}Wh):</span>
+              <span class="text-[#D8ED00] font-bold">+{{ offGridComparison().currentSelected.solarHours }} h</span>
+            </div>
+            <div class="flex justify-between pt-2 border-t border-[#32263D]">
+              <span class="text-[#CBD5E1]">Czas pełnego ładowania stacji C200 z panelu:</span>
+              <span class="text-[#D8ED00] font-bold">{{ offGridComparison().currentSelected.stationChargeTimeHours }} h</span>
+            </div>
+          </div>
+
+          <!-- Active Desk Ergonomics Description -->
+          <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3.5 text-xs text-[#CBD5E1]">
+            @switch (deskLayoutMode()) {
+              @case ('book_90') {
+                <div>
+                  <strong class="text-[#D8ED00]">Konfiguracja 90° (Książka):</strong> Górny ekran Acera Dual (18.5") wyświetla terminal i logi kompilacji, dolny ekran (10-pkt dotyk z hosta Windows Acer Aspire i5) obsługuje Mission Control agentów.
+                </div>
+              }
+              @case ('flat_180') {
+                <div>
+                  <strong class="text-[#D8ED00]">Konfiguracja 180° (Płaski Stół 37"):</strong> Acer Dual rozłożony na płasko na biurku regulowanym wraz z iPad Pro M5 (Pencil Pro: squeeze, barrel roll, hover) do wspólnego szkicowania topologii Smart Grid.
+                </div>
+              }
+              @case ('projector_120') {
+                <div>
+                  <strong class="text-[#D8ED00]">Projektor 120" (Prezentacja Przetargowa):</strong> Wyjście HDMI 2.1 z MacBooka Pro i9 wyświetla wielkoformatową mapę Ustka – Słupsk – Trójmiasto oraz metryki BERTScore 0.87 / CodeBLEU 0.74 dla komisji.
+                </div>
+              }
+            }
+          </div>
+        </div>
+
+        <!-- Right 6 Cols: Hardware Inventory Table & Travel Checklist -->
+        <div class="lg:col-span-6 space-y-5">
+          <div class="rounded-xl border border-[#32263D] bg-[#130E17] p-4 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h3 class="text-sm font-bold text-[#F8FAFC]">
+                Pełny Inwentarz Sprzętowy (Stacjonarnie ~{{ totalStationaryWatts() }}W / 2 Obwody)
+              </h3>
+              <div class="flex items-center gap-1">
+                <button
+                  type="button"
+                  (click)="hardwareCategoryFilter.set('ALL')"
+                  class="rounded-md px-2.5 py-1 text-xs font-mono cursor-pointer"
+                  [class.bg-[#D8ED00]]="hardwareCategoryFilter() === 'ALL'"
+                  [class.text-[#130E17]]="hardwareCategoryFilter() === 'ALL'"
+                  [class.text-[#CBD5E1]]="hardwareCategoryFilter() !== 'ALL'"
+                >
+                  Wszystkie (11)
+                </button>
+                <button
+                  type="button"
+                  (click)="hardwareCategoryFilter.set('MOBILE')"
+                  class="rounded-md px-2.5 py-1 text-xs font-mono cursor-pointer"
+                  [class.bg-[#D8ED00]]="hardwareCategoryFilter() === 'MOBILE'"
+                  [class.text-[#130E17]]="hardwareCategoryFilter() === 'MOBILE'"
+                  [class.text-[#CBD5E1]]="hardwareCategoryFilter() !== 'MOBILE'"
+                >
+                  Plecak ~6 kg (4)
+                </button>
+              </div>
+            </div>
+
+            <div class="max-h-[290px] overflow-y-auto border border-[#32263D] rounded-lg">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead class="sticky top-0 bg-[#241B2C] text-[#CBD5E1] font-mono border-b border-[#32263D]">
+                  <tr>
+                    <th class="py-2.5 px-3">Urządzenie</th>
+                    <th class="py-2.5 px-2 text-right">Moc</th>
+                    <th class="py-2.5 px-3">Rola w Systemie Anti Gravity</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-[#32263D]">
+                  @for (hw of filteredHardware(); track hw.id) {
+                    <tr class="hover:bg-[#241B2C]/50">
+                      <td class="py-2.5 px-3 font-semibold text-[#F8FAFC]">
+                        {{ hw.name }}
+                      </td>
+                      <td class="py-2.5 px-2 text-right font-mono tabular-nums text-[#D8ED00]">
+                        {{ hw.watts }}W
+                      </td>
+                      <td class="py-2.5 px-3 text-[#CBD5E1]">
+                        {{ hw.role }}
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Interactive Travel Checklist -->
+          <div class="rounded-xl border border-[#32263D] bg-[#241B2C] p-4 space-y-3">
+            <div class="text-xs font-mono text-[#D8ED00]">
+              Checklista Wyjazdowa (Audyt Terenowy Ustka / Trójmiasto)
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              @for (step of travelChecklist(); track step.id) {
+                <button
+                  type="button"
+                  (click)="toggleTravelItem(step.id)"
+                  class="flex items-start gap-2.5 rounded-lg border border-[#32263D] bg-[#130E17] p-2.5 text-left text-xs hover:border-[#D8ED00] transition-colors cursor-pointer"
+                >
+                  <mat-icon
+                    class="!text-base !w-4 !h-4 shrink-0 mt-0.5"
+                    [class.text-[#D8ED00]]="step.ready"
+                    [class.text-[#94A3B8]]="!step.ready"
+                  >
+                    {{ step.ready ? 'check_box' : 'check_box_outline_blank' }}
+                  </mat-icon>
+                  <div>
+                    <div class="font-semibold text-[#F8FAFC]">{{ step.item }}</div>
+                    <div class="text-[11px] text-[#94A3B8]">{{ step.detail }}</div>
+                  </div>
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: FINANCIAL ARCHITECTURE 60/30/10, 4 PAYOUT DATES & PFRON / FE POMORZA GRANTS -->
+    <section
+      id="finanse-dotacje"
+      aria-labelledby="finance-heading"
+      class="rounded-2xl border border-[#32263D] bg-[#1B1421] p-6 sm:p-8 space-y-6"
+    >
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#32263D] pb-5">
+        <div class="space-y-1">
+          <div class="text-xs font-mono text-[#CBD5E1]">
+            04. Inżynieria Kapitału (Model 60 / 30 / 10) · 4 Wpływy w Miesiącu · Dotacja PFRON PUP Słupsk
+          </div>
+          <h2 id="finance-heading" class="text-xl sm:text-2xl font-bold text-[#F8FAFC]">
+            Symulator Przepływów Pieniężnych B2B / SLA oraz Kosztorys PFRON (143 400 PLN Limit)
+          </h2>
+        </div>
+
+        <!-- Tax Regime Toggle -->
+        <div
+          role="group"
+          aria-label="Wybór opodatkowania B2B"
+          class="flex items-center gap-1.5 rounded-xl bg-[#130E17] p-1.5 border border-[#32263D]"
+        >
+          <button
+            type="button"
+            (click)="taxMode.set('IP_BOX_5')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors cursor-pointer"
+            [class.bg-[#D8ED00]]="taxMode() === 'IP_BOX_5'"
+            [class.text-[#130E17]]="taxMode() === 'IP_BOX_5'"
+            [class.text-[#CBD5E1]]="taxMode() !== 'IP_BOX_5'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">science</mat-icon>
+            <span>Ulga IP Box (5% PIT B+R)</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="taxMode.set('RYCZALT_12')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors cursor-pointer"
+            [class.bg-[#D8ED00]]="taxMode() === 'RYCZALT_12'"
+            [class.text-[#130E17]]="taxMode() === 'RYCZALT_12'"
+            [class.text-[#CBD5E1]]="taxMode() !== 'RYCZALT_12'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">receipt_long</mat-icon>
+            <span>Ryczałt IT (12%)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left 6 Cols: Interactive 60/30/10 Sliders & 4 Monthly Payout Calendar -->
+        <div class="lg:col-span-6 rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-5">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono tabular-nums">
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-[11px] text-[#CBD5E1]">Przychód Brutto / mies.</div>
+              <div class="text-lg font-extrabold text-[#F8FAFC]">
+                {{ financialBreakdown().totalGrossMonthlyPln }} PLN
+              </div>
+              <div class="text-[11px] text-[#94A3B8]">Model 60/30/10</div>
+            </div>
+
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3">
+              <div class="text-[11px] text-[#CBD5E1]">Dochód Netto (na rękę)</div>
+              <div class="text-lg font-extrabold text-[#D8ED00]">
+                {{ financialBreakdown().netMonthlyPln }} PLN
+              </div>
+              <div class="text-[11px] text-[#94A3B8]">
+                Podatek: {{ financialBreakdown().taxAmountPln }} PLN
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-3 col-span-2 sm:col-span-1">
+              <div class="text-[11px] text-[#CBD5E1]">MRR Abonamenty SLA</div>
+              <div class="text-lg font-extrabold text-[#D8ED00]">
+                {{ financialBreakdown().slaMrrPln }} PLN
+              </div>
+              <div class="text-[11px] text-[#94A3B8]">{{ slaClientsCount() }} podmiotów</div>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <div class="flex justify-between font-mono mb-1">
+                <label for="fin-b2b-rate" class="text-[#CBD5E1]">60% Czasu — Stawka godzinowa B2B (140–250 PLN/h netto):</label>
+                <span class="text-[#D8ED00] font-bold">{{ b2bRatePln() }} PLN/h ({{ b2bHoursMonth() }}h = {{ financialBreakdown().b2bGrossPln }} PLN)</span>
+              </div>
+              <input
+                id="fin-b2b-rate"
+                type="range"
+                min="140"
+                max="250"
+                step="5"
+                [value]="b2bRatePln()"
+                (input)="updateFinancialSlider('b2bRatePln', $any($event.target).value)"
+                class="w-full accent-[#D8ED00] cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div class="flex justify-between font-mono mb-1">
+                <label for="fin-sla-clients" class="text-[#CBD5E1]">30% Czasu — Liczba klientów SLA (Gminy / Hotele / Kancelarie):</label>
+                <span class="text-[#D8ED00] font-bold">{{ slaClientsCount() }} podmiotów × {{ slaAvgFeePln() }} PLN</span>
+              </div>
+              <input
+                id="fin-sla-clients"
+                type="range"
+                min="1"
+                max="15"
+                step="1"
+                [value]="slaClientsCount()"
+                (input)="updateFinancialSlider('slaClientsCount', $any($event.target).value)"
+                class="w-full accent-[#D8ED00] cursor-pointer"
+              />
+            </div>
+
+            <div>
+              <div class="flex justify-between font-mono mb-1">
+                <label for="fin-audits" class="text-[#CBD5E1]">10% Czasu — Audyty RODO/NIS2/WCAG i wdrożenia w miesiącu:</label>
+                <span class="text-[#D8ED00] font-bold">{{ auditsPerMonth() }} × {{ auditAvgFeePln() }} PLN (40% zadatku)</span>
+              </div>
+              <input
+                id="fin-audits"
+                type="range"
+                min="1"
+                max="6"
+                step="1"
+                [value]="auditsPerMonth()"
+                (input)="updateFinancialSlider('auditsPerMonth', $any($event.target).value)"
+                class="w-full accent-[#D8ED00] cursor-pointer"
+              />
+            </div>
+          </div>
+
+          <!-- 4 Monthly Payout Dates Schedule -->
+          <div class="rounded-lg border border-[#32263D] bg-[#130E17] p-4 space-y-2.5 font-mono text-xs tabular-nums">
+            <div class="text-[#D8ED00] font-bold">
+              Harmonogram Frekwencji Wpłat (4 Przelewy w Miesiącu):
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#CBD5E1]">• 5. dzień miesiąca (Abonamenty SLA MRR):</span>
+              <span class="text-[#F8FAFC] font-bold">+{{ financialBreakdown().payoutSchedule.day5SlaPln }} PLN</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#CBD5E1]">• 10. dzień miesiąca (Faktura główna B2B Polska/UE):</span>
+              <span class="text-[#F8FAFC] font-bold">+{{ financialBreakdown().payoutSchedule.day10B2bPln }} PLN</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#CBD5E1]">• 18. dzień miesiąca (Zaliczki 40% na nowe audyty):</span>
+              <span class="text-[#F8FAFC] font-bold">+{{ financialBreakdown().payoutSchedule.day18AuditAdvancePln }} PLN</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-[#CBD5E1]">• 25. dzień miesiąca (Faktury samorządowe OPS/Offshore):</span>
+              <span class="text-[#F8FAFC] font-bold">+{{ financialBreakdown().payoutSchedule.day25MunicipalCompletionPln }} PLN</span>
+            </div>
+            <div class="pt-2 border-t border-[#32263D] flex justify-between text-[11px] text-[#94A3B8]">
+              <span>Alokacja IKE/IKZE (ETF MSCI ACWI + EDO): {{ financialBreakdown().capitalAllocation.monthlyIkeIkzeEtfPln }} PLN/mies.</span>
+              <span>Obligacje TOS/COI: {{ financialBreakdown().capitalAllocation.monthlyTosCoiBondsPln }} PLN/mies.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 6 Cols: PFRON PUP Słupsk Budget Table (16,850 PLN / 143,400 PLN) -->
+        <div class="lg:col-span-6 rounded-xl border border-[#32263D] bg-[#130E17] p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#32263D] pb-3">
+            <div>
+              <div class="text-xs font-mono text-[#D8ED00]">
+                Zarządzenie PUP Słupsk Nr 9/2025 z 14.03.2025 · Orzeczenie Umiarkowane
+              </div>
+              <h3 class="text-base font-bold text-[#F8FAFC]">
+                Kosztorys Dotacji PFRON (Wariant Bazowy PoC vs Limit)
+              </h3>
+            </div>
+            <div class="text-right font-mono tabular-nums">
+              <div class="text-xs text-[#CBD5E1]">Kosztorys Wniosku</div>
+              <div class="text-lg font-extrabold text-[#D8ED00]">
+                {{ pfronTotalPln() }} PLN / {{ pfronLimitPln }} PLN
+              </div>
+            </div>
+          </div>
+
+          <div class="max-h-[340px] overflow-y-auto border border-[#32263D] rounded-lg">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead class="sticky top-0 bg-[#241B2C] text-[#CBD5E1] font-mono border-b border-[#32263D]">
+                <tr>
+                  <th class="py-2.5 px-3">Poz. / Pozycja Kosztorysowa</th>
+                  <th class="py-2.5 px-3 text-right">Kwota PLN</th>
+                  <th class="py-2.5 px-3">Uzasadnienie Techniczno-Wdrożeniowe</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#32263D] font-mono tabular-nums">
+                @for (item of pfronItems(); track item.id) {
+                  <tr class="hover:bg-[#241B2C]/50">
+                    <td class="py-2 px-3 font-sans font-semibold text-[#F8FAFC]">
+                      {{ item.id }}. {{ item.name }}
+                    </td>
+                    <td class="py-2 px-3 text-right text-[#D8ED00] font-bold whitespace-nowrap">
+                      {{ item.costPln }} PLN
+                    </td>
+                    <td class="py-2 px-3 font-sans text-[#CBD5E1]">
+                      {{ item.justification }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: MASTER CODE COMPLETION (HTML + PYTHON PDF-1.4 GENERATOR) & COMPLIANCE CHECKLIST -->
+    <section
+      id="eksport-master"
+      aria-labelledby="export-heading"
+      class="rounded-2xl border border-[#32263D] bg-[#1B1421] p-6 sm:p-8 space-y-6"
+    >
+      <div class="flex flex-col xl:flex-row xl:items-end justify-between gap-4 border-b border-[#32263D] pb-5">
+        <div class="space-y-1">
+          <div class="text-xs font-mono text-[#CBD5E1]">
+            05. Kompletne Dokończenie Pliku Prezentacja_Multimedialna_Master.html &amp; Skrypt generator_pdf_md_txt.py
+          </div>
+          <h2 id="export-heading" class="text-xl sm:text-2xl font-bold text-[#F8FAFC]">
+            Generator Natywnych Dokumentów (.PDF-1.4, .MD, .TXT, .ZIP) &amp; Master Checklista Zgodności
+          </h2>
+        </div>
+
+        <!-- Code Viewer Tab Selector -->
+        <div
+          role="group"
+          aria-label="Wybór widoku kodu źródłowego"
+          class="flex items-center gap-1.5 rounded-xl bg-[#130E17] p-1.5 border border-[#32263D] overflow-x-auto shrink-0"
+        >
+          <button
+            type="button"
+            (click)="activeCodeTab.set('html_completion')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors cursor-pointer"
+            [class.bg-[#D8ED00]]="activeCodeTab() === 'html_completion'"
+            [class.text-[#130E17]]="activeCodeTab() === 'html_completion'"
+            [class.text-[#CBD5E1]]="activeCodeTab() !== 'html_completion'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">code</mat-icon>
+            <span>1. Dokończenie HTML (JS -&gt; &lt;/html&gt;)</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="activeCodeTab.set('python_generator')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors cursor-pointer"
+            [class.bg-[#D8ED00]]="activeCodeTab() === 'python_generator'"
+            [class.text-[#130E17]]="activeCodeTab() === 'python_generator'"
+            [class.text-[#CBD5E1]]="activeCodeTab() !== 'python_generator'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">terminal</mat-icon>
+            <span>2. Skrypt generator_pdf_md_txt.py</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="activeCodeTab.set('master_markdown')"
+            class="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold transition-colors cursor-pointer"
+            [class.bg-[#D8ED00]]="activeCodeTab() === 'master_markdown'"
+            [class.text-[#130E17]]="activeCodeTab() === 'master_markdown'"
+            [class.text-[#CBD5E1]]="activeCodeTab() !== 'master_markdown'"
+          >
+            <mat-icon class="!text-sm !w-4 !h-4">article</mat-icon>
+            <span>3. Dokumentacja Master (.MD / .TXT)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left 7 Cols: Interactive Code Inspector & Copy/Download Bar -->
+        <div class="lg:col-span-7 space-y-4">
+          @switch (activeCodeTab()) {
+            @case ('html_completion') {
+              <div class="rounded-xl border border-[#32263D] bg-[#130E17] p-4 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#32263D] pb-3">
+                  <div class="text-xs font-mono text-[#D8ED00]">
+                    Prezentacja_Multimedialna_Master.html (od // 5. Eksport... aż do &lt;/html&gt;)
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      (click)="copyCodeToClipboard(completionHtmlSnippet, 'Fragment końcowy HTML')"
+                      class="inline-flex items-center gap-1.5 rounded-lg bg-[#241B2C] border border-[#32263D] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">content_copy</mat-icon>
+                      <span>Kopiuj Fragment HTML</span>
+                    </button>
+                    <button
+                      type="button"
+                      (click)="downloadDocument('html')"
+                      class="inline-flex items-center gap-1.5 rounded-lg bg-[#D8ED00] px-3 py-1.5 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">download</mat-icon>
+                      <span>Pobierz Cały Plik .HTML</span>
+                    </button>
+                  </div>
+                </div>
+                <pre class="max-h-[420px] overflow-auto text-xs font-mono text-[#F8FAFC] leading-relaxed p-2">{{ completionHtmlSnippet }}</pre>
+              </div>
+            }
+            @case ('python_generator') {
+              <div class="rounded-xl border border-[#32263D] bg-[#130E17] p-4 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#32263D] pb-3">
+                  <div class="text-xs font-mono text-[#D8ED00]">
+                    generator_pdf_md_txt.py (Natywny silnik PDF-1.4 bez zewnętrznych bibliotek + .MD / .TXT / .ZIP / .RAR)
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      (click)="copyCodeToClipboard(pythonGeneratorScript, 'generator_pdf_md_txt.py')"
+                      class="inline-flex items-center gap-1.5 rounded-lg bg-[#241B2C] border border-[#32263D] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">content_copy</mat-icon>
+                      <span>Kopiuj Skrypt Python</span>
+                    </button>
+                    <button
+                      type="button"
+                      (click)="downloadDocument('py')"
+                      class="inline-flex items-center gap-1.5 rounded-lg bg-[#D8ED00] px-3 py-1.5 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">download</mat-icon>
+                      <span>Pobierz generator_pdf_md_txt.py</span>
+                    </button>
+                  </div>
+                </div>
+                <pre class="max-h-[420px] overflow-auto text-xs font-mono text-[#F8FAFC] leading-relaxed p-2">{{ pythonGeneratorScript }}</pre>
+              </div>
+            }
+            @case ('master_markdown') {
+              <div class="rounded-xl border border-[#32263D] bg-[#130E17] p-4 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#32263D] pb-3">
+                  <div class="text-xs font-mono text-[#D8ED00]">
+                    Dokumentacja_Architekta_Master (Od Profesora do Laika)
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      (click)="downloadDocument('md')"
+                      class="inline-flex items-center gap-1.5 rounded-lg bg-[#241B2C] border border-[#32263D] px-3 py-1.5 text-xs font-semibold text-[#F8FAFC] hover:border-[#D8ED00] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">download</mat-icon>
+                      <span>Pobierz .MD</span>
+                    </button>
+                    <button
+                      type="button"
+                      (click)="downloadDocument('pdf')"
+                      class="inline-flex items-center gap-1.5 rounded-lg bg-[#D8ED00] px-3 py-1.5 text-xs font-bold text-[#130E17] hover:bg-[#e5f733] cursor-pointer"
+                    >
+                      <mat-icon class="!text-sm !w-4 !h-4">picture_as_pdf</mat-icon>
+                      <span>Pobierz Natywny .PDF</span>
+                    </button>
+                  </div>
+                </div>
+                <pre class="max-h-[420px] overflow-auto text-xs font-mono text-[#F8FAFC] leading-relaxed p-2">{{ masterDocMarkdown }}</pre>
+              </div>
+            }
+          }
+        </div>
+
+        <!-- Right 5 Cols: Master Compliance Checklist (WCAG 2.1 AAA / RODO / NIS2 / EU AI Act) -->
+        <div class="lg:col-span-5 rounded-xl border border-[#32263D] bg-[#241B2C] p-5 space-y-4">
+          <div class="flex items-center justify-between border-b border-[#32263D] pb-3">
+            <div>
+              <div class="text-xs font-mono text-[#D8ED00]">
+                Audyt Bezpieczeństwa i Dostępności Cyfrowej
+              </div>
+              <h3 class="text-base font-bold text-[#F8FAFC]">
+                Master Checklista Zgodności ({{ completedComplianceCount() }}/{{ complianceItems().length }})
+              </h3>
+            </div>
+            <span class="font-mono text-xs text-[#D8ED00] font-bold">100% READY</span>
+          </div>
+
+          <div class="space-y-2.5">
+            @for (item of complianceItems(); track item.id) {
+              <button
+                type="button"
+                (click)="toggleComplianceItem(item.id)"
+                class="w-full flex items-start gap-3 rounded-xl border border-[#32263D] bg-[#130E17] p-3 text-left hover:border-[#D8ED00] transition-colors cursor-pointer"
+              >
+                <mat-icon
+                  class="!text-lg !w-5 !h-5 shrink-0 mt-0.5"
+                  [class.text-[#D8ED00]]="item.checked"
+                  [class.text-[#94A3B8]]="!item.checked"
+                >
+                  {{ item.checked ? 'verified_user' : 'radio_button_unchecked' }}
+                </mat-icon>
+                <div class="space-y-0.5 text-xs">
+                  <div class="font-mono text-[#D8ED00] font-bold">{{ item.domain }}</div>
+                  <div class="font-semibold text-[#F8FAFC]">{{ item.requirement }}</div>
+                  <div class="text-[11px] text-[#94A3B8]">{{ item.verificationDetail }}</div>
+                </div>
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Quiet Corporate & Academic Footer -->
+  <footer class="border-t border-[#32263D] bg-[#130E17] py-6 px-6 text-xs text-[#94A3B8] no-print">
+    <div class="mx-auto max-w-[1360px] flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        Anti Gravity Studio — Mobilne Laboratorium AI &amp; Smart Grid · Słupsk / Ustka / Trójmiasto Pomorskie
+      </div>
+      <div class="flex flex-wrap items-center gap-3 font-mono">
+        <span>WCAG 2.1 AAA</span>
+        <span aria-hidden="true">·</span>
+        <span>RODO Art. 25/32 Zero-PII</span>
+        <span aria-hidden="true">·</span>
+        <span>NIS2 &amp; EU AI Act</span>
+      </div>
+    </div>
+  </footer>
+</div>
