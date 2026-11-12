@@ -5,6 +5,7 @@ import {
   calculateFinancialArchitecture,
   calculateOffGridRuntime,
   detectSensorFlatline,
+  formatTelemetrySnapshotsCsv,
   generateNativePdf14Bytes,
   MASTER_DOC_MARKDOWN,
 } from './smart-grid-engine';
@@ -92,3 +93,23 @@ test('generateNativePdf14Bytes produces valid PDF-1.4 header, objects, xref, and
   assert.equal(text.includes('xref\n'), true);
   assert.equal(text.trimEnd().endsWith('%%EOF'), true);
 });
+
+test('formatTelemetrySnapshotsCsv generates UTF-8 BOM, headers, and escaped rows', () => {
+  const csv = formatTelemetrySnapshotsCsv([
+    {
+      id: 1,
+      zoneId: 'ustka',
+      zoneName: 'Ustka Port, Baza "Offshore" O&M',
+      dCiScore: 96,
+      correctedPm25: '6.8',
+      humidityRh: 88,
+      fiberLatencyMs: '3.84',
+      windShareMw: 1420,
+      createdAt: '2026-11-11T21:00:00.000Z',
+    },
+  ]);
+
+  assert.equal(csv.startsWith('\uFEFFid,zoneId,zoneName,dCiScore,correctedPm25,humidityRh,fiberLatencyMs,windShareMw,createdAt\r\n'), true);
+  assert.equal(csv.includes('1,ustka,"Ustka Port, Baza ""Offshore"" O&M",96,6.8,88,3.84,1420,2026-11-11T21:00:00.000Z\r\n'), true);
+});
+

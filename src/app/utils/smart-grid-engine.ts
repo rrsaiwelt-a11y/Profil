@@ -572,3 +572,61 @@ export function buildMasterHtmlPresentation(docContent: string = MASTER_DOC_MARK
 </body>
 </html>`;
 }
+
+export interface TelemetryCsvRow {
+  id: number;
+  zoneId: string;
+  zoneName: string;
+  dCiScore: number;
+  correctedPm25: string;
+  humidityRh: number;
+  fiberLatencyMs: string;
+  windShareMw: number;
+  createdAt: string;
+}
+
+function escapeCsvCell(value: string | number): string {
+  const str = String(value ?? '');
+  if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+    return `"${str.replace(/"/g, '""')}"`;
+  }
+  return str;
+}
+
+/**
+ * Formats an array of saved telemetry snapshots into an RFC 4180 CSV string
+ * prefixed with UTF-8 BOM (\uFEFF) so Polish diacritics open cleanly in Excel/Pandas.
+ */
+export function formatTelemetrySnapshotsCsv(rows: TelemetryCsvRow[]): string {
+  const headers = [
+    'id',
+    'zoneId',
+    'zoneName',
+    'dCiScore',
+    'correctedPm25',
+    'humidityRh',
+    'fiberLatencyMs',
+    'windShareMw',
+    'createdAt',
+  ];
+  const lines = [headers.join(',')];
+
+  for (const row of rows) {
+    lines.push(
+      [
+        escapeCsvCell(row.id),
+        escapeCsvCell(row.zoneId),
+        escapeCsvCell(row.zoneName),
+        escapeCsvCell(row.dCiScore),
+        escapeCsvCell(row.correctedPm25),
+        escapeCsvCell(row.humidityRh),
+        escapeCsvCell(row.fiberLatencyMs),
+        escapeCsvCell(row.windShareMw),
+        escapeCsvCell(row.createdAt),
+      ].join(','),
+    );
+  }
+
+  return `\uFEFF${lines.join('\r\n')}\r\n`;
+}
+

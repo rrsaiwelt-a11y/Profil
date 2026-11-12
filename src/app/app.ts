@@ -22,6 +22,7 @@ import {
   calculateFinancialArchitecture,
   calculateOffGridRuntime,
   DciInput,
+  formatTelemetrySnapshotsCsv,
   generateNativePdf14Bytes,
   MASTER_DOC_MARKDOWN,
   PYTHON_GENERATOR_SCRIPT,
@@ -515,17 +516,30 @@ export class App implements AfterViewInit, OnDestroy {
   }
 
   async saveActiveTelemetryToCloud(): Promise<void> {
+    const zEval = this.activeZoneEval();
+    const zIn = this.activeZoneInput();
+    const localRecord: SavedTelemetryRecord = {
+      id: Date.now(),
+      zoneId: zEval.zoneId,
+      zoneName: zEval.zoneName,
+      dCiScore: zEval.dCiScore,
+      correctedPm25: String(zEval.correctedPm25),
+      humidityRh: zEval.humidityRh,
+      fiberLatencyMs: String(zEval.fiberLatencyMs),
+      windShareMw: zIn.windShareMw,
+      createdAt: new Date().toISOString(),
+    };
+
     if (!this.authIdToken) {
+      this.savedTelemetryList.update((prev) => [localRecord, ...prev]);
       this.authStatusMessage.set(
-        'Zaloguj się przez Google w górnym pasku, aby zapisać pomiar dCi w chmurze.',
+        `Zapisano lokalną migawkę dCi (${zEval.zoneName}) na liście sesji (${this.savedTelemetryList().length}). Zaloguj się przez Google, aby zsynchronizować z Cloud SQL.`,
       );
       return;
     }
     this.savingToCloud.set(true);
     try {
       const headers = new HttpHeaders({Authorization: `Bearer ${this.authIdToken}`});
-      const zEval = this.activeZoneEval();
-      const zIn = this.activeZoneInput();
       await firstValueFrom(
         this.http.post(
           '/api/db/telemetry',
@@ -544,7 +558,10 @@ export class App implements AfterViewInit, OnDestroy {
       this.authStatusMessage.set(`Zapisano migawkę telemetrii (${zEval.zoneName}) na koncie.`);
       await this.loadCloudRecords();
     } catch {
-      this.authStatusMessage.set('Nie udało się zapisać migawki telemetrii.');
+      this.savedTelemetryList.update((prev) => [localRecord, ...prev]);
+      this.authStatusMessage.set(
+        `Zapisano migawkę telemetrii (${zEval.zoneName}) w pamięci lokalnej.`,
+      );
     } finally {
       this.savingToCloud.set(false);
     }
@@ -1057,6 +1074,46 @@ export class App implements AfterViewInit, OnDestroy {
     this.exportFeedback.set(
       `Wygenerowano i pobrano plik: ${filename} (${(blob.size / 1024).toFixed(1)} KB)`,
     );
+  }
+
+  exportSavedTelemetryCsv(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const saved = this.savedTelemetryList();
+    const nowIso = new Date().toISOString();
+    const rowsToExport: SavedTelemetryRecord[] =
+      saved.length > 0
+        ? saved
+        : this.allZonesEvals().map((zEval, idx) => {
+            const zIn = this.zones()[zEval.zoneId];
+            return {
+              id: idx + 1,
+              zoneId: zEval.zoneId,
+              zoneName: zEval.zoneName,
+              dCiScore: zEval.dCiScore,
+              correctedPm25: String(zEval.correctedPm25),
+              humidityRh: zEval.humidityRh,
+              fiberLatencyMs: String(zEval.fiberLatencyMs),
+              windShareMw: zIn?.windShareMw ?? 1420,
+              createdAt: nowIso,
+            };
+          });
+
+    const csvContent = formatTelemetrySnapshotsCsv(rowsToExport);
+    const filename = 'Telemetria_Smart_Grid_Snapshots.csv';
+    const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    const statusMsg = `Wyeksportowano ${rowsToExport.length} rekordów telemetrii dCi do pliku ${filename} (${(blob.size / 1024).toFixed(1)} KB)`;
+    this.authStatusMessage.set(statusMsg);
+    this.exportFeedback.set(statusMsg);
   }
 
   async copyCodeToClipboard(content: string, label: string): Promise<void> {
